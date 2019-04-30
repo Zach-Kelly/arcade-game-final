@@ -6,7 +6,7 @@
  * 
  * Also don't forget to write javadocs for your classes and methods.
  * 
- * @author <YOUR_NAMES_GO_HERE>
+ * @author Zach Kelly and Trey Kline
  *
  */
 public class Main {
