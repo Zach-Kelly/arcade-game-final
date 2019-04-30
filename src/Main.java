@@ -1,3 +1,8 @@
+import java.awt.BorderLayout;
+
+import javax.swing.JFrame;
+import javax.swing.Timer;
+
 /**
  * The main class for your arcade game.
  * 
@@ -15,7 +20,23 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		System.out.println("Begin your arcade game program here!");
+		
+		JFrame frame = new JFrame("Bubble Bobble");
+		LevelComponent component = new LevelComponent(frame);		
+		component.handleLoadLevel("src/Levels/Level_1.txt");
+		
+		frame.add(component, BorderLayout.CENTER);
+		
+		//gameFrame.pack();
+		frame.setSize(1000, 1000);
+		frame.setResizable(false);
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		//TODO: the timer
+//		Timer timer = new Timer(DELAY, advanceListener);
+//		timer.start();
+		
 	}
 
 }
