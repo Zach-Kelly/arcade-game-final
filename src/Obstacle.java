@@ -22,10 +22,9 @@ public class Obstacle extends Rectangle {
 	}
 	
 	public void drawOn(Graphics2D g2) {
-		
-		g2.setColor(fill);
-		g2.fill(this);
 		Stroke origStroke = g2.getStroke();
+		g2.setColor(fill);
+		g2.fill(this);	
 		g2.setStroke(new BasicStroke(OUTLINE_THICKNESS));
 		g2.setColor(this.outline);
 		g2.draw(this);

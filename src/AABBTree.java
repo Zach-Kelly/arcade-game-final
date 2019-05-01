@@ -1,9 +1,12 @@
+
 import java.util.ArrayList;
 
-public class AABBTree {
+public abstract class AABBTree {
+	
 	
 	public AABBTree(ArrayList<Obstacle> obstacles) {
 		// TODO Auto-generated constructor stub
+	
 	}
 	
 }

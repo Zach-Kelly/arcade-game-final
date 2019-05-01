@@ -10,6 +10,7 @@ public class LevelLoader {
 	private Scanner scanner;
 	private Color bgColor;
 	private ArrayList<Obstacle> obstacles;
+	private ArrayList<Entity> entities;
 	
 	public void loadFile(String path) {
 		
@@ -34,6 +35,7 @@ public class LevelLoader {
 		Color obstacleFillColor;
 		Color obstacleOutlineColor;
 		this.obstacles = new ArrayList<Obstacle>();
+		this.entities = new ArrayList<Entity>();
 		
 		if(!this.scanner.next().equals("L")) {
 			throw new Exception("Level colors not found, it must be the first line");
@@ -50,6 +52,11 @@ public class LevelLoader {
 		}
 		else {
 			//TODO: construct hero
+			int x = this.scanner.nextInt();
+			int y = this.scanner.nextInt();
+			System.out.println("1");
+			this.entities.add(new Hero(x, y));	
+			System.out.println("2");
 		}
 		
 		this.scanner.nextLine();
