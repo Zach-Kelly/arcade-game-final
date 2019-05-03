@@ -107,6 +107,9 @@ public class LevelLoader {
 		for(Obstacle o : this.obstacles) {
 			o.drawOn(g2);
 		}
+		for (Entity e : this.entities) {
+			e.spawn(g2);
+		}
 		
 	}
 	
