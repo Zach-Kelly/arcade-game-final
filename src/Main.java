@@ -15,10 +15,8 @@ import javax.swing.Timer;
  *
  */
 public class Main {
-
-	/**
-	 * @param args
-	 */
+	public static final int DELAY = 50;
+	
 	public static void main(String[] args) {
 		
 		JFrame frame = new JFrame("Bubble Bobble");
@@ -34,8 +32,8 @@ public class Main {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		//TODO: the timer
-//		Timer timer = new Timer(DELAY, advanceListener);
-//		timer.start();
+		Timer timer = new Timer(DELAY, new GameTimeListener(component));
+		timer.start();
 		
 	}
 

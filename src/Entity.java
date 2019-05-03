@@ -26,13 +26,14 @@ public abstract class Entity {
 	
 	public abstract void checkForCollision();
 	
-	public abstract void updateCollision();
+	public abstract void updatePosition();
 	
 	public void die() {
 		//TODO: This class
 	}
 	
 	public void spawn(Graphics2D g2) {
+		this.hitBox = new Rectangle(posX, posY, height, width);
 		g2.setColor(hitBoxColor);
 		g2.fill(hitBox);
 		g2.draw(hitBox);

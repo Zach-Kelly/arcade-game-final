@@ -113,4 +113,10 @@ public class LevelLoader {
 		
 	}
 	
+	public void updateLevel() {
+		for (Entity e : this.entities) {
+			e.updatePosition();
+		}
+	}
+	
 }
