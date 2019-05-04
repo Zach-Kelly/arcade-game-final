@@ -17,14 +17,16 @@ import javax.swing.Timer;
 public class Main {
 	public static final int DELAY = 50;
 	
+	
+	
 	public static void main(String[] args) {
 		
 		JFrame frame = new JFrame("Bubble Bobble");
 		LevelComponent component = new LevelComponent(frame);		
 		component.handleLoadLevel("src/Levels/Level_1.txt");
-		
 		frame.add(component, BorderLayout.CENTER);
-		
+		frame.addKeyListener(new KeyboardListener(component.getHero()));
+		frame.setFocusable(true);
 		//gameFrame.pack();
 		frame.setSize(1000, 1000);
 		frame.setResizable(false);

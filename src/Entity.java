@@ -13,6 +13,8 @@ public abstract class Entity {
 	protected int width;
 	protected Rectangle hitBox;
 	protected Color hitBoxColor;
+	protected int dx;
+	protected int dy;
 	
 	public Entity(int posX, int posY, int height, int width, Color color) {
 		// TODO Auto-generated constructor stub

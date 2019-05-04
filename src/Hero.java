@@ -2,8 +2,6 @@ import java.awt.Color;
 
 public class Hero extends Entity {
 	public static final Color HERO_COLOR = Color.RED;
-	protected int dx;
-	protected int dy;
 	protected KeyboardListener listener;
 
 	public Hero(int startPosX, int startPosY) {
@@ -31,28 +29,31 @@ public class Hero extends Entity {
 	public void handleLeft(boolean keyPressed) {
 		if (keyPressed) {
 			this.dx=-5;
-			System.out.println("To the left");
+			//System.out.println("To the left");
 		}
 		else {
 			this.dx = 0;
-			System.out.println("Stop");
+			//System.out.println("Stop");
 		}
 	}
 	
 	public void handleRight(boolean keyPressed) {
 		if (keyPressed) {
 			this.dx = 5;
-			System.out.println("To the right");
+			//System.out.println("To the right");
 		}
 		
 		else {
 			this.dx = 0;
-			System.out.println("Stop");
+			//System.out.println("Stop");
 		}
 	}
 	
 	public void handleJump() {
 		System.out.println("Oh I jumped");
 	}
-
+	
+	public KeyboardListener getListener() {
+		return this.listener;
+	}
 }

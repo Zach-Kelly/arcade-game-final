@@ -32,4 +32,16 @@ public class Obstacle extends Rectangle {
 		
 	}
 	
+	public void handleCollision(Entity entity) {
+		System.out.println("Checked Collision");
+		if (entity.dy>0) { //entity is above
+			entity.dy=0;
+		}
+		else {
+			entity.posX = this.x-(this.width+entity.width/2);
+			entity.dx=0;
+			System.out.println("Stopped Guy");
+		}
+	}
+	
 }

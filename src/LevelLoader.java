@@ -119,4 +119,15 @@ public class LevelLoader {
 		}
 	}
 	
+	public Entity getHero() {
+		return this.entities.get(0);
+	}
+	
+	public ArrayList<Entity> getEntities(){
+		return this.entities;
+	}
+	
+	public ArrayList<Obstacle> getObstacles(){
+		return this.obstacles;
+	}
 }

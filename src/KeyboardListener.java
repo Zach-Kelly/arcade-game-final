@@ -15,13 +15,13 @@ public class KeyboardListener implements KeyListener {
 		// TODO Auto-generated method stub
 		if (arg0.getKeyCode()==KeyEvent.VK_LEFT) {
 			this.hero.handleLeft(true);
-			System.out.println("Left Pressed");
+			//System.out.println("Left Pressed");
 		}
 		if (arg0.getKeyCode()==KeyEvent.VK_RIGHT) {
 			this.hero.handleRight(true);
-			System.out.println("Right Pressed");
+			//System.out.println("Right Pressed");
 		}
-		System.out.println("Key Pressed");
+		//System.out.println("Key Pressed");
 
 	}
 
