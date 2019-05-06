@@ -21,8 +21,9 @@ public class Main {
 		
 		JFrame frame = new JFrame("Bubble Bobble");
 		LevelComponent component = new LevelComponent(frame);
-		component.handleLoadLevel("src/Levels/Level_1.txt");
+		component.handleLoadLevel(0);
 		frame.getContentPane().setBackground(component.handleGetBackgroundColor());
+		//TODO: fix bg color loading
 		
 		frame.add(component, BorderLayout.CENTER);
 		

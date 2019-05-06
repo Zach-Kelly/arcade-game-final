@@ -15,6 +15,7 @@ public class LevelLoader {
 	
 	public void loadFile(String path) {
 		
+		System.out.println(path);
 		try {
 			this.scanner = new Scanner(new File(path));
 		}

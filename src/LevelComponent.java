@@ -5,28 +5,35 @@ import java.util.ArrayList;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.Timer;
 
-//TODO: add hero and monsters back in
-//TODO: add updateLevel for entities
 @SuppressWarnings("serial")
 public class LevelComponent extends JComponent {
 	
 	public LevelLoader levelLoader;
 	private JFrame frame;
+	private ArrayList<String> levelList = new ArrayList<String>();
+	private int currentLevelIndex = 0;
 	
 	public LevelComponent(JFrame frame) {
 		
 		this.levelLoader = new LevelLoader();
 		this.frame = frame;
 		KeyboardListener keyListener = new KeyboardListener();
+		keyListener.addLevelComponent(this);
 		this.addKeyListener(keyListener);
 		this.levelLoader.addKeyListener(keyListener);
-
+		this.levelList.add("src/Levels/Level_1.txt");
+		this.levelList.add("src/Levels/Level_2.txt");
+		this.levelList.add("src/Levels/Level_3.txt");
+		
 	}
 	
-	public void handleLoadLevel(String path) {
-		this.levelLoader.loadFile(path);
+	public void handleLoadLevel(int indexOffset) {
+		
+		this.currentLevelIndex += indexOffset;
+		this.currentLevelIndex = (this.currentLevelIndex + this.levelList.size()) % this.levelList.size();
+		this.levelLoader.loadFile(this.levelList.get(this.currentLevelIndex));
+		
 	}
 	
 	@Override

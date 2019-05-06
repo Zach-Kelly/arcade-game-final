@@ -3,10 +3,14 @@ import java.awt.event.KeyListener;
 
 public class KeyboardListener implements KeyListener {
 	private Hero hero;
+	private LevelComponent levelComponent;
 	
 	public void addHero(Hero hero) {
 		this.hero = hero;
-		System.out.println("sdfasd");
+	}
+	
+	public void addLevelComponent(LevelComponent levelComponent) {
+		this.levelComponent = levelComponent;
 	}
 
 	@Override
@@ -23,6 +27,14 @@ public class KeyboardListener implements KeyListener {
 			if (Math.abs((this.hero.dy)) < 6) {//this.hero.onGround) {
 				this.hero.dy += -30;
 			}
+		}
+		if (arg0.getKeyCode() == KeyEvent.VK_U) {
+			System.out.println("level loaded");
+			this.levelComponent.handleLoadLevel(1);
+		}
+		if (arg0.getKeyCode() == KeyEvent.VK_D) {
+			System.out.println("level loaded");
+			this.levelComponent.handleLoadLevel(-1);
 		}
 		//System.out.println("Key Pressed");
 		
