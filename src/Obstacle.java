@@ -7,12 +7,12 @@ import java.awt.Stroke;
 @SuppressWarnings("serial")
 public class Obstacle extends Rectangle {
 	
-	private String type;
+	private int type;
 	private Color fill;
 	private Color outline;
-	private static final float OUTLINE_THICKNESS = 5;
+	private static final float OUTLINE_THICKNESS = 1;
 	
-	public Obstacle(int x, int y, int width, int height, String type, Color fill, Color outline) {
+	public Obstacle(int x, int y, int width, int height, int type, Color fill, Color outline) {
 		
 		super(x, y, width, height);
 		this.type = type;
@@ -32,8 +32,14 @@ public class Obstacle extends Rectangle {
 		
 	}
 	
+	public int getType() {
+		return type;
+	}
+	
+	//TODO: get rid of this
 	public void handleCollision(Entity entity) {
-		System.out.println("Checked Collision");
+		
+		//System.out.println("Checked Collision");
 		if (entity.dy>0) { //entity is above
 			entity.dy=0;
 		}

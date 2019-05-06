@@ -4,25 +4,28 @@ import java.awt.event.KeyListener;
 public class KeyboardListener implements KeyListener {
 	private Hero hero;
 	
-	public KeyboardListener(Hero theGuy) {
-		// TODO Auto-generated constructor stub
-		this.hero = theGuy;
-		
+	public void addHero(Hero hero) {
+		this.hero = hero;
+		System.out.println("sdfasd");
 	}
 
 	@Override
 	public void keyPressed(KeyEvent arg0) {
-		// TODO Auto-generated method stub
+		
+		//TODO: fix this
 		if (arg0.getKeyCode()==KeyEvent.VK_LEFT) {
 			this.hero.handleLeft(true);
 			//System.out.println("Left Pressed");
-		}
-		if (arg0.getKeyCode()==KeyEvent.VK_RIGHT) {
+		} else if (arg0.getKeyCode()==KeyEvent.VK_RIGHT) {
 			this.hero.handleRight(true);
 			//System.out.println("Right Pressed");
+		} else if (arg0.getKeyCode() == KeyEvent.VK_UP) {
+			if (Math.abs((this.hero.dy)) < 6) {//this.hero.onGround) {
+				this.hero.dy += -30;
+			}
 		}
 		//System.out.println("Key Pressed");
-
+		
 	}
 
 	@Override

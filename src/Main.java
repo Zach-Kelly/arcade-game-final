@@ -15,25 +15,23 @@ import javax.swing.Timer;
  *
  */
 public class Main {
-	public static final int DELAY = 50;
-	
-	
+	public static final int DELAY = 10;
 	
 	public static void main(String[] args) {
 		
 		JFrame frame = new JFrame("Bubble Bobble");
-		LevelComponent component = new LevelComponent(frame);		
+		LevelComponent component = new LevelComponent(frame);
 		component.handleLoadLevel("src/Levels/Level_1.txt");
+		frame.getContentPane().setBackground(component.handleGetBackgroundColor());
+		
 		frame.add(component, BorderLayout.CENTER);
-		frame.addKeyListener(new KeyboardListener(component.getHero()));
-		frame.setFocusable(true);
-		//gameFrame.pack();
+		
+		component.setFocusable(true);
 		frame.setSize(1000, 1000);
 		frame.setResizable(false);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		//TODO: the timer
 		Timer timer = new Timer(DELAY, new GameTimeListener(component));
 		timer.start();
 		
