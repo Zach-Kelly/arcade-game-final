@@ -6,11 +6,10 @@ import java.util.HashMap;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 
-
 public abstract class Entity {
-	
+
 	private static final int HITBOX_HEIGHT = 1;
-	
+
 	private double posX;
 	private double posY;
 	private double dx = 0;
@@ -18,20 +17,20 @@ public abstract class Entity {
 	private int height;
 	private int width;
 	private boolean onGround = false;
-	
+
 	private double xVelocity = 0;
 	private double xVelocityMax = 0;
 	private double xDrag = 0;
 	private double yVelocity = 0;
 	private double yVelocityMax = 0;
 	private double gravity = 0;
-	
+
 	private HashMap<String, Integer> keyStates = new HashMap<String, Integer>();
 	private Rectangle2D obstacleHitBox;
 	private Image sprite;
-	
+
 	public Entity(int posX, int posY, int width, int height, String spritePath) {
-		
+
 		ImageIcon icon = new ImageIcon(spritePath);
 		sprite = icon.getImage().getScaledInstance(width, height, Image.SCALE_AREA_AVERAGING);
 		this.posX = posX;
@@ -42,20 +41,20 @@ public abstract class Entity {
 		this.keyStates.put("up", 0);
 		this.keyStates.put("left", 0);
 		this.keyStates.put("right", 0);
-		
+
 	}
-	
+
 	public void addMovementValues(double xV, double xVMax, double xDrag, double yV, double yVMax, double g) {
-		
+
 		this.xVelocity = xV;
 		this.xVelocityMax = xVMax;
 		this.xDrag = xDrag;
 		this.yVelocity = yV;
 		this.yVelocityMax = yVMax;
 		this.gravity = g;
-		
+
 	}
-	
+
 	public void checkObstacleCollision(Obstacle o) {
 
 		this.updateHitBox();
@@ -78,7 +77,7 @@ public abstract class Entity {
 		}
 
 	}
-	
+
 	public void updatePosition() {
 
 		updateHorizontalPosition();
@@ -118,23 +117,22 @@ public abstract class Entity {
 		}
 
 	}
-	
+
 	public void updateHitBox() {
 		int hitBoxY = (int) (this.posY + this.height - HITBOX_HEIGHT);
 		this.obstacleHitBox.setRect(this.posX, hitBoxY, this.obstacleHitBox.getWidth(), HITBOX_HEIGHT);
 	}
-	
+
 	public void die() {
-		//TODO: This class
+		// TODO: This class
 	}
-	
+
 	public void drawOn(Graphics2D g2, JComponent observer) {
 		g2.drawImage(sprite, (int) this.posX, (int) this.posY, observer);
 	}
-	
+
 	public void handleKeyInteraction(String key, int state) {
 		this.keyStates.put(key, state);
 	}
-		
 
 }
