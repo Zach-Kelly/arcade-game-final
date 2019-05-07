@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javax.swing.JComponent;
+
 public class LevelLoader {
 
 	private Scanner scanner;
@@ -145,10 +147,10 @@ public class LevelLoader {
 		return bgColor;
 	}
 
-	public void drawEntities(Graphics2D g2) {
+	public void drawEntities(Graphics2D g2, JComponent observer) {
 
 		for (Entity e : this.entities) {
-			e.drawOn(g2);
+			e.drawOn(g2, observer);
 		}
 
 	}

@@ -22,6 +22,7 @@ public class Obstacle extends Rectangle2D.Double {
 	}
 	
 	public void drawOn(Graphics2D g2) {
+		
 		Stroke origStroke = g2.getStroke();
 		g2.setColor(fill);
 		g2.fill(this);	

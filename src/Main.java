@@ -20,10 +20,9 @@ public class Main {
 	public static void main(String[] args) {
 		
 		JFrame frame = new JFrame("Bubble Bobble");
-		LevelComponent component = new LevelComponent(frame);
-		component.handleLoadLevel(0);
-		
+		LevelComponent component = new LevelComponent(frame);		
 		frame.add(component, BorderLayout.CENTER);
+		component.handleLoadLevel(0);
 		
 		component.setFocusable(true);
 		frame.setSize(1000, 1000);

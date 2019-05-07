@@ -14,4 +14,11 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>src/Sprites/Hero.png</name>
+			<type>1</type>
+			<location>C:/Users/kellyzc/git/arcade-game-arcade-27/src/Sprites/Hero.png</location>
+		</link>
+	</linkedResources>
 </projectDescription>

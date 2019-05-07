@@ -47,7 +47,7 @@ public class LevelComponent extends JComponent {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
 		this.levelLoader.drawObstacles(g2);
-		this.levelLoader.drawEntities(g2);
+		this.levelLoader.drawEntities(g2, this);
 
 	}
 
