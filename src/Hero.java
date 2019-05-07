@@ -1,82 +1,100 @@
 import java.awt.Color;
-//TODO: getters and setters
+import java.util.HashMap;
+
 public class Hero extends Entity {
-	
+
 	private static final Color HERO_COLOR = Color.RED;
-	private static final int GRAVITY = 1;
-	private static final int TERMINAL_VELOCITY = 19;
+	private static final double GRAVITY = 1;
+	private static final double TERMINAL_VELOCITY = 19;
+	private static final double Y_VELOCITY = -30;
+	private static final double X_DRAG = 0.5;
+	private static final double X_VELOCITY = 2;
+	private static final double X_VELOCITY_MAX = 10;
 	private KeyboardListener listener;
+	private HashMap<String, Integer> keyStates;
 
 	public Hero(int startPosX, int startPosY) {
-		// TODO Auto-generated constructor stub
+
 		super(startPosX, startPosY, 20, 10, HERO_COLOR);
 		this.dx = 0;
 		this.dy = 0;
+		this.keyStates = new HashMap<String, Integer>();
+		this.keyStates.put("up", 0);
+		this.keyStates.put("left", 0);
+		this.keyStates.put("right", 0);
+
 	}
-	
+
 	@Override
 	public void checkObstacleCollision(Obstacle o) {
-		//TODO: fix double jumping
-		this.hitBox.setLocation(this.posX, this.posY);
-		if(o.intersects(this.hitBox)) {
-			if(o.getType() == 0) {
-				this.posY = (int) (o.getMinY() - this.hitBox.height);
-				this.dy = 0;
-			}
-			if(o.getType() == 1) {
-				if(this.hitBox.getCenterX() - o.getCenterX() < 0) { //left of wall
-					this.posX = (int) (o.getMinX() - this.hitBox.width);
-				} else {
-					this.posX = (int) (o.getMaxX());
+
+		this.hitBox.setRect(this.posX, this.posY, this.hitBox.getWidth(), this.hitBox.getHeight());
+		if (o.intersects(this.hitBox)) {
+			if (o.getType() == 0) {
+				if (this.dy >= 0) {
+					this.posY = o.getMinY() - this.hitBox.getHeight();
+					this.dy = 0;
+					this.onGround = true;
 				}
 			}
-		} else {
-			this.onGround = false;
+			if (o.getType() == 1) {
+				if (this.hitBox.getCenterX() - o.getCenterX() < 0) { // left of wall
+					this.posX = o.getMinX() - this.hitBox.getWidth();
+				} else {
+					this.posX = o.getMaxX();
+				}
+			}
 		}
-		
+
 	}
 
 	@Override
 	public void updatePosition() {
-		
-		this.posX += dx;
+
+		updateHorizontalPosition();
+		updateVerticalPosition();
+
+	}
+
+	private void updateVerticalPosition() {
+
+		if (this.onGround) {
+			this.dy += this.keyStates.get("up") * Y_VELOCITY;
+			this.onGround = false;
+		}
+		if (this.dy > TERMINAL_VELOCITY) {
+			this.dy = TERMINAL_VELOCITY;
+		}
+		this.posY = this.posY + this.dy;
 		this.dy += GRAVITY;
-		if (dy > TERMINAL_VELOCITY) {
-			dy = TERMINAL_VELOCITY;
-		}
-		this.posY = this.posY + dy;
-		//this.hitBox.setLocation(this.posX, this.posY);
-		
+
 	}
-	
-	public void handleLeft(boolean keyPressed) {
-		if (keyPressed) {
-			this.dx=-5;
-			System.out.println("To the left");
+
+	private void updateHorizontalPosition() {
+
+		this.dx += X_VELOCITY * (this.keyStates.get("right") - this.keyStates.get("left"));
+		if (this.dx > 0) {
+			if (this.dx > X_VELOCITY_MAX) {
+				this.dx = X_VELOCITY_MAX;
+			}
+			this.posX += this.dx;
+			this.dx = Math.max(0, this.dx - X_DRAG);
+		} else if (this.dx < 0) {
+			if (this.dx < -X_VELOCITY_MAX) {
+				this.dx = -X_VELOCITY_MAX;
+			}
+			this.posX += this.dx;
+			this.dx = Math.min(0, this.dx + X_DRAG);
 		}
-		else {
-			this.dx = 0;
-			//System.out.println("Stop");
-		}
+
 	}
-	
-	public void handleRight(boolean keyPressed) {
-		if (keyPressed) {
-			this.dx = 5;
-			//System.out.println("To the right");
-		}
-		
-		else {
-			this.dx = 0;
-			//System.out.println("Stop");
-		}
+
+	public void handleKeyInteraction(String key, int state) {
+		this.keyStates.put(key, state);
 	}
-	
-	public void handleJump() {
-		//System.out.println("Oh I jumped");
-	}
-	
+
 	public KeyboardListener getListener() {
 		return this.listener;
 	}
+
 }

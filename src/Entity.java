@@ -1,19 +1,19 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D;
 
 
 public abstract class Entity {
 	
-	protected int posX;
-	protected int posY;
+	protected double posX;
+	protected double posY;
 	protected int height;
 	protected int width;
-	protected Rectangle hitBox;
+	protected Rectangle2D hitBox;
 	protected Color hitBoxColor;
-	protected int dx;
-	protected int dy;
-	protected boolean onGround;
+	protected double dx;
+	protected double dy;
+	protected boolean onGround = false;
 	
 	public Entity(int posX, int posY, int height, int width, Color color) {
 		
@@ -21,9 +21,8 @@ public abstract class Entity {
 		this.posY = posY;
 		this.height = height;
 		this.width = width;
-		this.hitBox = new Rectangle(posX, posY, height, width);
+		this.hitBox = new Rectangle2D.Double(posX, posY, height, width);
 		this.hitBoxColor = color;
-		this.onGround = false;
 		
 	}
 	

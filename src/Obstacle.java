@@ -1,18 +1,18 @@
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.Stroke;
+import java.awt.geom.Rectangle2D;
 
 @SuppressWarnings("serial")
-public class Obstacle extends Rectangle {
+public class Obstacle extends Rectangle2D.Double {
 	
 	private int type;
 	private Color fill;
 	private Color outline;
 	private static final float OUTLINE_THICKNESS = 1;
 	
-	public Obstacle(int x, int y, int width, int height, int type, Color fill, Color outline) {
+	public Obstacle(double x, double y, double width, double height, int type, Color fill, Color outline) {
 		
 		super(x, y, width, height);
 		this.type = type;
@@ -34,20 +34,6 @@ public class Obstacle extends Rectangle {
 	
 	public int getType() {
 		return type;
-	}
-	
-	//TODO: get rid of this
-	public void handleCollision(Entity entity) {
-		
-		//System.out.println("Checked Collision");
-		if (entity.dy>0) { //entity is above
-			entity.dy=0;
-		}
-		else {
-			entity.posX = this.x-(this.width+entity.width/2);
-			entity.dx=0;
-			System.out.println("Stopped Guy");
-		}
 	}
 	
 }
