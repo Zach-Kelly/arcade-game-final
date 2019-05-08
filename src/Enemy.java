@@ -1,5 +1,6 @@
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
+import java.util.ArrayList;
 
 import javax.swing.JComponent;
 
@@ -13,9 +14,9 @@ public abstract class Enemy extends Entity {
 	private Ellipse2D.Double bubble;
 	protected Hero hero;
 	
-	public Enemy(int posX, int posY, int width, int height, String spritePath, Hero hero) {
+	public Enemy(int posX, int posY, int width, int height, String spritePath, Hero hero, ArrayList<Entity> entity) {
 		
-		super(posX, posY, width, height, spritePath);
+		super(posX, posY, width, height, spritePath, entity);
 		this.hero = hero;
 		double bubbleDiameter = Math.pow(width * width + height * height, 0.5);
 		this.bubbleXOffset = (bubbleDiameter - width) / 2;

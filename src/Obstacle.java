@@ -33,7 +33,7 @@ public class Obstacle extends Rectangle2D.Double {
 
 	}
 
-	public int getType() {
+	public int getSubtype() {
 		return type;
 	}
 

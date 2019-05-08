@@ -54,6 +54,7 @@ public class LevelComponent extends JComponent {
 	public void updateScreen() {
 
 		this.levelLoader.updateEntityPositions();
+		//this.levelLoader.updateProjectilePositions();
 		this.levelLoader.handleCollisions();
 		this.repaint();
 

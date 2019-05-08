@@ -30,6 +30,9 @@ public class KeyboardListener implements KeyListener {
 			if (arg0.getKeyCode() == KeyEvent.VK_UP) {
 				this.hero.handleKeyInteraction("up", 1);
 			}
+			if (arg0.getKeyCode() == KeyEvent.VK_SPACE) {
+				this.hero.handleKeyInteraction("shoot", 1);
+			}
 		}
 
 	}
@@ -45,6 +48,9 @@ public class KeyboardListener implements KeyListener {
 		}
 		if (arg0.getKeyCode() == KeyEvent.VK_UP) {
 			this.hero.handleKeyInteraction("up", 0);
+		}
+		if (arg0.getKeyCode() == KeyEvent.VK_SPACE) {
+			this.hero.handleKeyInteraction("shoot", 0);
 		}
 
 	}

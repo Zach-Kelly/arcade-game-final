@@ -1,4 +1,5 @@
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 
 public class Runner extends Enemy {
 
@@ -12,9 +13,9 @@ public class Runner extends Enemy {
 	private static final double Y_VELOCITY_MAX = 7;
 	private static final double GRAVITY = 0.1;
 
-	public Runner(int posX, int posY, Hero hero) {
+	public Runner(int posX, int posY, Hero hero, ArrayList<Entity> entities) {
 
-		super(posX, posY, RUNNER_WIDTH, RUNNER_HEIGHT, SPRITE_PATH, hero);
+		super(posX, posY, RUNNER_WIDTH, RUNNER_HEIGHT, SPRITE_PATH, hero, entities);
 		addMovementValues(X_VELOCITY, X_VELOCITY_MAX, X_DRAG, Y_VELOCITY, Y_VELOCITY_MAX, GRAVITY);
 
 	}
@@ -25,6 +26,14 @@ public class Runner extends Enemy {
 		Point2D.Double heroPosition = this.hero.getPosition();
 		double xOffset = heroPosition.x - this.posX;
 		double yOffset = heroPosition.y - this.posY;
+		
+		horizontalMovement(xOffset, yOffset);
+		verticalMovement(yOffset);
+
+	}
+	
+	private void horizontalMovement(double xOffset, double yOffset) {
+		
 		if (Math.abs(xOffset) < 20) {
 			handleKeyInteraction("left", 1);
 			handleKeyInteraction("right", 1);
@@ -35,13 +44,17 @@ public class Runner extends Enemy {
 			handleKeyInteraction("right", 0);
 			handleKeyInteraction("left", 1);
 		}
-
+		
+	}
+	
+	private void verticalMovement(double yOffset) {
+		
 		if (yOffset < 0) {
 			handleKeyInteraction("up", 1);
 		} else {
 			handleKeyInteraction("up", 0);
 		}
-
+		
 	}
 
 	@Override
@@ -50,6 +63,18 @@ public class Runner extends Enemy {
 		super.updatePosition();
 		movementControl();
 
+	}
+
+	@Override
+	public void die() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void shootProjectile() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

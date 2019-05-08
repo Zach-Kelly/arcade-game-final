@@ -1,13 +1,14 @@
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 
 public abstract class Entity {
-
+	
 	private static final int HITBOX_HEIGHT = 1;
 
 	protected double posX;
@@ -17,6 +18,7 @@ public abstract class Entity {
 	protected int height;
 	protected int width;
 	private boolean onGround = false;
+	private boolean isDead = false;
 
 	private double xVelocity = 0;
 	private double xVelocityMax = 0;
@@ -26,10 +28,12 @@ public abstract class Entity {
 	private double gravity = 0;
 
 	private HashMap<String, Integer> keyStates = new HashMap<String, Integer>();
-	private Rectangle2D obstacleHitBox;
+	protected Rectangle2D.Double obstacleHitBox;
+	private Rectangle2D.Double fullHitBox;
+	private ArrayList<Entity> entities;
 	private Image sprite;
 
-	public Entity(int posX, int posY, int width, int height, String spritePath) {
+	public Entity(int posX, int posY, int width, int height, String spritePath, ArrayList<Entity> entities) {
 
 		ImageIcon icon = new ImageIcon(spritePath);
 		sprite = icon.getImage().getScaledInstance(width, height, Image.SCALE_AREA_AVERAGING);
@@ -38,9 +42,11 @@ public abstract class Entity {
 		this.height = height;
 		this.width = width;
 		this.obstacleHitBox = new Rectangle2D.Double(posX, posY, width, HITBOX_HEIGHT);
+		this.fullHitBox = new Rectangle2D.Double(posX, posY, width, height);
 		this.keyStates.put("up", 0);
 		this.keyStates.put("left", 0);
 		this.keyStates.put("right", 0);
+		this.keyStates.put("shoot", 0);
 
 	}
 
@@ -54,19 +60,21 @@ public abstract class Entity {
 		this.gravity = g;
 
 	}
+	
+	public abstract void shootProjectile();
 
 	public void checkObstacleCollision(Obstacle o) {
 
 		this.updateHitBox();
 		if (o.intersects(this.obstacleHitBox)) {
-			if (o.getType() == 0) {
+			if (o.getSubtype() == 0) {
 				if (this.dy >= 0) {
 					this.posY = o.getMinY() - this.height;
 					this.dy = 0;
 					this.onGround = true;
 				}
 			}
-			if (o.getType() == 1) {
+			if (o.getSubtype() == 1) {
 				if (this.obstacleHitBox.getCenterX() - o.getCenterX() < 0) { // left of wall
 					this.posX = o.getMinX() - this.width;
 				} else {
@@ -118,13 +126,23 @@ public abstract class Entity {
 
 	}
 
-	public void updateHitBox() {
+	protected void updateHitBox() {
 		int hitBoxY = (int) (this.posY + this.height - HITBOX_HEIGHT);
 		this.obstacleHitBox.setRect(this.posX, hitBoxY, this.obstacleHitBox.getWidth(), HITBOX_HEIGHT);
 	}
+	
+	public Rectangle2D.Double getFullHitBox() {
+		return fullHitBox;
+	}
 
-	public void die() {
-		// TODO: This class
+	public abstract void die();
+	
+	public void markForDeath() {
+		this.isDead = true;
+	}
+	
+	public boolean isDead() {
+		return isDead;
 	}
 
 	public void drawOn(Graphics2D g2, JComponent observer) {

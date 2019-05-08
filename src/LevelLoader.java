@@ -13,6 +13,7 @@ public class LevelLoader {
 	private Color bgColor;
 	private ArrayList<Obstacle> obstacles;
 	private ArrayList<Entity> entities;
+	//private ArrayList<Projectile> enemyProjectiles;
 	private KeyboardListener keyListener;
 
 	public void loadFile(String path) {
@@ -52,6 +53,7 @@ public class LevelLoader {
 
 		this.obstacles = new ArrayList<Obstacle>();
 		this.entities = new ArrayList<Entity>();
+		//this.enemyProjectiles = new ArrayList<Projectile>();
 
 		Color[] obstacleColors = getObstacleColors();
 		createHero();
@@ -63,13 +65,32 @@ public class LevelLoader {
 
 	public void handleCollisions() {
 
-		for (Obstacle obstacle : obstacles) {
-			for (Entity entity : entities) {
-				entity.checkObstacleCollision(obstacle);
+		for (Obstacle o : this.obstacles) {
+			for (Entity entity : this.entities) {
+				entity.checkObstacleCollision(o);
+			}
+		}
+		//TODO: make a list of things that kill the hero on touch - or not
+//		for (Projectile p : this.enemyProjectiles) {
+//			if (this.entities.get(0).getFullHitBox().intersects(p.getFullHitBox())) {
+//				this.entities.get(0).die();
+//			}
+//		}
+		for (int i = 1; i < this.entities.size(); i++) {
+			if (this.entities.get(0).getFullHitBox().intersects(this.entities.get(i).getFullHitBox())) {
+				this.entities.get(0).die();
 			}
 		}
 
 	}
+	//TODO
+//	public void updateProjectilePositions() {
+//		
+//		for (Projectile p : this.enemyProjectiles) {
+//			p.updatePosition();
+//		}
+//		
+//	}
 
 	private Color[] getObstacleColors() throws Exception {
 
@@ -95,7 +116,7 @@ public class LevelLoader {
 		} else {
 			int x = this.scanner.nextInt();
 			int y = this.scanner.nextInt();
-			this.entities.add(new Hero(x, y));
+			this.entities.add(new Hero(x, y, this.entities));
 			this.keyListener.addHero((Hero) this.entities.get(0));
 		}
 
@@ -111,7 +132,7 @@ public class LevelLoader {
 			int y = this.scanner.nextInt();
 			int subtype = this.scanner.nextInt();
 			if (subtype == 0) {
-				this.entities.add(new Runner(x, y, (Hero) this.entities.get(0)));
+				this.entities.add(new Runner(x, y, (Hero) this.entities.get(0), this.entities));
 			}
 			if (subtype == 1) {
 				//TODO: shooter
