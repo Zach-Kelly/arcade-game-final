@@ -8,7 +8,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 
 public abstract class Entity {
-	
+
 	private static final int HITBOX_HEIGHT = 1;
 
 	protected double posX;
@@ -19,6 +19,7 @@ public abstract class Entity {
 	protected int width;
 	private boolean onGround = false;
 	private boolean isDead = false;
+	protected boolean lastDirectionRight = true;
 
 	private double xVelocity = 0;
 	private double xVelocityMax = 0;
@@ -30,7 +31,7 @@ public abstract class Entity {
 	private HashMap<String, Integer> keyStates = new HashMap<String, Integer>();
 	protected Rectangle2D.Double obstacleHitBox;
 	private Rectangle2D.Double fullHitBox;
-	private ArrayList<Entity> entities;
+	protected ArrayList<Entity> entities;
 	private Image sprite;
 
 	public Entity(int posX, int posY, int width, int height, String spritePath, ArrayList<Entity> entities) {
@@ -60,7 +61,14 @@ public abstract class Entity {
 		this.gravity = g;
 
 	}
-	
+
+	// TODO: convert keystates to boolean
+	public void handleShootProjectile() {
+		if (this.keyStates.get("shoot") == 1) {
+			shootProjectile();
+		}
+	}
+
 	public abstract void shootProjectile();
 
 	public void checkObstacleCollision(Obstacle o) {
@@ -114,12 +122,14 @@ public abstract class Entity {
 			if (this.dx > this.xVelocityMax) {
 				this.dx = this.xVelocityMax;
 			}
+			this.lastDirectionRight = true;
 			this.posX += this.dx;
 			this.dx = Math.max(0, this.dx - this.xDrag);
 		} else if (this.dx < 0) {
 			if (this.dx < -this.xVelocityMax) {
 				this.dx = -this.xVelocityMax;
 			}
+			this.lastDirectionRight = false;
 			this.posX += this.dx;
 			this.dx = Math.min(0, this.dx + this.xDrag);
 		}
@@ -130,17 +140,17 @@ public abstract class Entity {
 		int hitBoxY = (int) (this.posY + this.height - HITBOX_HEIGHT);
 		this.obstacleHitBox.setRect(this.posX, hitBoxY, this.obstacleHitBox.getWidth(), HITBOX_HEIGHT);
 	}
-	
+
 	public Rectangle2D.Double getFullHitBox() {
 		return fullHitBox;
 	}
 
 	public abstract void die();
-	
+
 	public void markForDeath() {
 		this.isDead = true;
 	}
-	
+
 	public boolean isDead() {
 		return isDead;
 	}

@@ -8,12 +8,12 @@ import java.util.Scanner;
 import javax.swing.JComponent;
 
 public class LevelLoader {
-	//TODO: convert subtypes to strings for readability
+	// TODO: convert subtypes to strings for readability
 	private Scanner scanner;
 	private Color bgColor;
 	private ArrayList<Obstacle> obstacles;
 	private ArrayList<Entity> entities;
-	//private ArrayList<Projectile> enemyProjectiles;
+	// private ArrayList<Projectile> enemyProjectiles;
 	private KeyboardListener keyListener;
 
 	public void loadFile(String path) {
@@ -41,9 +41,10 @@ public class LevelLoader {
 		this.keyListener = keyListener;
 	}
 
-	public void updateEntityPositions() {
+	public void updateEntityActions() {
 
 		for (Entity e : this.entities) {
+			e.handleShootProjectile();
 			e.updatePosition();
 		}
 
@@ -53,7 +54,7 @@ public class LevelLoader {
 
 		this.obstacles = new ArrayList<Obstacle>();
 		this.entities = new ArrayList<Entity>();
-		//this.enemyProjectiles = new ArrayList<Projectile>();
+		// this.enemyProjectiles = new ArrayList<Projectile>();
 
 		Color[] obstacleColors = getObstacleColors();
 		createHero();
@@ -70,12 +71,6 @@ public class LevelLoader {
 				entity.checkObstacleCollision(o);
 			}
 		}
-		//TODO: make a list of things that kill the hero on touch - or not
-//		for (Projectile p : this.enemyProjectiles) {
-//			if (this.entities.get(0).getFullHitBox().intersects(p.getFullHitBox())) {
-//				this.entities.get(0).die();
-//			}
-//		}
 		for (int i = 1; i < this.entities.size(); i++) {
 			if (this.entities.get(0).getFullHitBox().intersects(this.entities.get(i).getFullHitBox())) {
 				this.entities.get(0).die();
@@ -83,7 +78,7 @@ public class LevelLoader {
 		}
 
 	}
-	//TODO
+	// TODO
 //	public void updateProjectilePositions() {
 //		
 //		for (Projectile p : this.enemyProjectiles) {
@@ -116,7 +111,7 @@ public class LevelLoader {
 		} else {
 			int x = this.scanner.nextInt();
 			int y = this.scanner.nextInt();
-			this.entities.add(new Hero(x, y, this.entities));
+			this.entities.add(new Hero(x, y));
 			this.keyListener.addHero((Hero) this.entities.get(0));
 		}
 
@@ -135,7 +130,7 @@ public class LevelLoader {
 				this.entities.add(new Runner(x, y, (Hero) this.entities.get(0), this.entities));
 			}
 			if (subtype == 1) {
-				//TODO: shooter
+				// TODO: shooter
 				this.entities.add(null);
 			}
 			this.scanner.nextLine();

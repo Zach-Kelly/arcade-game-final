@@ -26,14 +26,14 @@ public class Runner extends Enemy {
 		Point2D.Double heroPosition = this.hero.getPosition();
 		double xOffset = heroPosition.x - this.posX;
 		double yOffset = heroPosition.y - this.posY;
-		
+
 		horizontalMovement(xOffset, yOffset);
 		verticalMovement(yOffset);
 
 	}
-	
+
 	private void horizontalMovement(double xOffset, double yOffset) {
-		
+
 		if (Math.abs(xOffset) < 20) {
 			handleKeyInteraction("left", 1);
 			handleKeyInteraction("right", 1);
@@ -44,17 +44,17 @@ public class Runner extends Enemy {
 			handleKeyInteraction("right", 0);
 			handleKeyInteraction("left", 1);
 		}
-		
+
 	}
-	
+
 	private void verticalMovement(double yOffset) {
-		
+
 		if (yOffset < 0) {
 			handleKeyInteraction("up", 1);
 		} else {
 			handleKeyInteraction("up", 0);
 		}
-		
+
 	}
 
 	@Override
@@ -68,13 +68,13 @@ public class Runner extends Enemy {
 	@Override
 	public void die() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void shootProjectile() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
