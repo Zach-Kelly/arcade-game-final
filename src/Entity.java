@@ -10,12 +10,12 @@ public abstract class Entity {
 
 	private static final int HITBOX_HEIGHT = 1;
 
-	private double posX;
-	private double posY;
+	protected double posX;
+	protected double posY;
 	private double dx = 0;
 	private double dy = 0;
-	private int height;
-	private int width;
+	protected int height;
+	protected int width;
 	private boolean onGround = false;
 
 	private double xVelocity = 0;

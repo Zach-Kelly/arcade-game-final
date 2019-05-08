@@ -8,7 +8,7 @@ import java.util.Scanner;
 import javax.swing.JComponent;
 
 public class LevelLoader {
-
+	//TODO: convert subtypes to strings for readability
 	private Scanner scanner;
 	private Color bgColor;
 	private ArrayList<Obstacle> obstacles;
@@ -107,7 +107,16 @@ public class LevelLoader {
 		boolean hasMonsters = false;
 		while (this.scanner.next().equals("M")) {
 			hasMonsters = true;
-			// TODO: construct monster
+			int x = this.scanner.nextInt();
+			int y = this.scanner.nextInt();
+			int subtype = this.scanner.nextInt();
+			if (subtype == 0) {
+				this.entities.add(new Runner(x, y, (Hero) this.entities.get(0)));
+			}
+			if (subtype == 1) {
+				//TODO: shooter
+				this.entities.add(null);
+			}
 			this.scanner.nextLine();
 		}
 		if (!hasMonsters) {

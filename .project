@@ -20,5 +20,10 @@
 			<type>1</type>
 			<location>C:/Users/kellyzc/git/arcade-game-arcade-27/src/Sprites/Hero.png</location>
 		</link>
+		<link>
+			<name>src/Sprites/Thanos.png</name>
+			<type>1</type>
+			<location>C:/Users/kellyzc/git/arcade-game-arcade-27/src/Sprites/Thanos.png</location>
+		</link>
 	</linkedResources>
 </projectDescription>
