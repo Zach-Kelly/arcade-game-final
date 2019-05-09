@@ -18,17 +18,17 @@
 		<link>
 			<name>src/Sprites/Bubly.png</name>
 			<type>1</type>
-			<location>C:/Users/kellyzc/git/arcade-game-arcade-27/src/Sprites/Bubly.png</location>
+			<locationURI>PROJECT_LOC/src/Sprites/Bubly.png</locationURI>
 		</link>
 		<link>
 			<name>src/Sprites/Hero.png</name>
 			<type>1</type>
-			<location>C:/Users/kellyzc/git/arcade-game-arcade-27/src/Sprites/Hero.png</location>
+			<locationURI>PROJECT_LOC/src/Sprites/Hero.png</locationURI>
 		</link>
 		<link>
 			<name>src/Sprites/Thanos.png</name>
 			<type>1</type>
-			<location>C:/Users/kellyzc/git/arcade-game-arcade-27/src/Sprites/Thanos.png</location>
+			<locationURI>PROJECT_LOC/src/Sprites/Thanos.png</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>
