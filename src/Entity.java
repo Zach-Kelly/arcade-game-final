@@ -48,6 +48,7 @@ public abstract class Entity {
 		this.keyStates.put("left", 0);
 		this.keyStates.put("right", 0);
 		this.keyStates.put("shoot", 0);
+		this.entities = entities;
 
 	}
 
@@ -63,13 +64,10 @@ public abstract class Entity {
 	}
 
 	// TODO: convert keystates to boolean
-	public void handleShootProjectile() {
-		if (this.keyStates.get("shoot") == 1) {
-			shootProjectile();
-		}
-	}
 
-	public abstract void shootProjectile();
+		
+
+	public abstract Projectile shootProjectile();
 
 	public void checkObstacleCollision(Obstacle o) {
 
@@ -101,7 +99,7 @@ public abstract class Entity {
 
 	}
 
-	private void updateVerticalPosition() {
+	protected void updateVerticalPosition() {
 
 		if (this.onGround) {
 			this.dy += this.keyStates.get("up") * this.yVelocity;
@@ -115,7 +113,7 @@ public abstract class Entity {
 
 	}
 
-	private void updateHorizontalPosition() {
+	protected void updateHorizontalPosition() {
 
 		this.dx += this.xVelocity * (this.keyStates.get("right") - this.keyStates.get("left"));
 		if (this.dx > 0) {
@@ -135,7 +133,9 @@ public abstract class Entity {
 		}
 
 	}
+	
 
+	
 	protected void updateHitBox() {
 		int hitBoxY = (int) (this.posY + this.height - HITBOX_HEIGHT);
 		this.obstacleHitBox.setRect(this.posX, hitBoxY, this.obstacleHitBox.getWidth(), HITBOX_HEIGHT);

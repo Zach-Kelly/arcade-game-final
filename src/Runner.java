@@ -35,8 +35,8 @@ public class Runner extends Enemy {
 	private void horizontalMovement(double xOffset, double yOffset) {
 
 		if (Math.abs(xOffset) < 20) {
-			handleKeyInteraction("left", 1);
-			handleKeyInteraction("right", 1);
+			handleKeyInteraction("left", 0);
+			handleKeyInteraction("right", 0);
 		} else if (xOffset > 0) {
 			handleKeyInteraction("right", 1);
 			handleKeyInteraction("left", 0);
@@ -72,9 +72,10 @@ public class Runner extends Enemy {
 	}
 
 	@Override
-	public void shootProjectile() {
+	public Projectile shootProjectile() {
 		// TODO Auto-generated method stub
-
+		return null;
+		
 	}
 
 }

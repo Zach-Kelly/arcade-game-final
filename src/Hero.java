@@ -29,9 +29,12 @@ public class Hero extends Entity {
 
 	}
 
-	@Override
-	public void shootProjectile() {
 
+	@Override
+	public Projectile shootProjectile() {
+		// TODO Auto-generated method stub
+		return null;
+		
 	}
 
 }

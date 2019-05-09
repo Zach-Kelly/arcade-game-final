@@ -42,11 +42,19 @@ public class LevelLoader {
 	}
 
 	public void updateEntityActions() {
-
+		
+		ArrayList<Entity> projectiles = new ArrayList<Entity>();
 		for (Entity e : this.entities) {
-			e.handleShootProjectile();
 			e.updatePosition();
+			if (e.shootProjectile()!=null) {
+				projectiles.add(e.shootProjectile());
+			}
 		}
+			for (Entity e : projectiles) {
+				if (e !=null) {
+					this.entities.add(e);
+				}
+			}
 
 	}
 
@@ -131,7 +139,7 @@ public class LevelLoader {
 			}
 			if (subtype == 1) {
 				// TODO: shooter
-				this.entities.add(null);
+				this.entities.add(new Shooter(x, y, (Hero) this.entities.get(0), this.entities));
 			}
 			this.scanner.nextLine();
 		}
