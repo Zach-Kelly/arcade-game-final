@@ -28,7 +28,7 @@ public abstract class Entity {
 	private double yVelocityMax = 0;
 	private double gravity = 0;
 
-	private HashMap<String, Integer> keyStates = new HashMap<String, Integer>();
+	protected HashMap<String, Integer> keyStates = new HashMap<String, Integer>();
 	protected Rectangle2D.Double obstacleHitBox;
 	private Rectangle2D.Double fullHitBox;
 	protected ArrayList<Entity> entities;

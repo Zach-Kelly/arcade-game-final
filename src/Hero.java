@@ -11,6 +11,7 @@ public class Hero extends Entity {
 	private static final double Y_VELOCITY = -20;
 	private static final double Y_VELOCITY_MAX = 19;
 	private static final double GRAVITY = 1;
+	
 
 	public Hero(int startPosX, int startPosY) {
 
@@ -28,13 +29,22 @@ public class Hero extends Entity {
 		// TODO Auto-generated method stub
 
 	}
-
+	
 
 	@Override
 	public Projectile shootProjectile() {
 		// TODO Auto-generated method stub
+		if(this.keyStates.get("shoot") ==1) {
+			if (this.lastDirectionRight) {
+				Burger fortniteBurger = new Burger((int) this.posX, (int) this.posY, -1);
+				return fortniteBurger;
+			}
+			else {
+				Burger fortniteBurger = new Burger((int) this.posX, (int) this.posY, 1);
+				return fortniteBurger;
+			}
+		}
 		return null;
-		
 	}
 
 }
