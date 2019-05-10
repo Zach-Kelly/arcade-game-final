@@ -49,5 +49,30 @@ public abstract class Projectile extends Entity {
 		}
 		
 	}
+	
+	@Override
+	public void checkObstacleCollision(Obstacle o) {
+
+		this.updateHitBox();
+		if (o.intersects(this.obstacleHitBox)) {
+			if (o.getSubtype() == 0) {
+				if (this.dy >= 0) {
+					this.posY = o.getMinY() - this.height;
+					this.dy = 0;
+					this.onGround = true;
+				}
+			}
+			if (o.getSubtype() == 1) {
+				if (this.obstacleHitBox.getCenterX() - o.getCenterX() < 0) { // left of wall
+					this.posX = o.getMinX() - this.width;
+				} else {
+					this.posX = o.getMaxX();
+				}
+				this.markForDeath();
+			}
+			this.updateHitBox();
+		}
+
+	}
 
 }

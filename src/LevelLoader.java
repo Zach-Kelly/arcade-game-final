@@ -43,6 +43,17 @@ public class LevelLoader {
 
 	public void updateEntityActions() {
 		
+		ArrayList<Entity> dead = new ArrayList<Entity>();
+		for (Entity e : this.entities) {
+			if (e.isDead()) {
+				dead.add(e);
+			}
+		}
+		
+		for (Entity e : dead) {
+			this.entities.remove(e);
+		}
+		
 		ArrayList<Entity> projectiles = new ArrayList<Entity>();
 		for (Entity e : this.entities) {
 			e.updatePosition();
@@ -50,11 +61,11 @@ public class LevelLoader {
 				projectiles.add(e.shootProjectile());
 			}
 		}
-			for (Entity e : projectiles) {
-				if (e !=null) {
-					this.entities.add(e);
-				}
+		for (Entity e : projectiles) {
+			if (e !=null) {
+				this.entities.add(e);
 			}
+		}
 
 	}
 

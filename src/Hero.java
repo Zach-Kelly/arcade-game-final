@@ -36,12 +36,12 @@ public class Hero extends Entity {
 		// TODO Auto-generated method stub
 		if(this.keyStates.get("shoot") ==1) {
 			if (this.lastDirectionRight) {
-				Burger fortniteBurger = new Burger((int) this.posX, (int) this.posY, -1);
-				return fortniteBurger;
+				Bubly holyBubly = new Bubly((int) this.posX, (int) this.posY, -1);
+				return holyBubly;
 			}
 			else {
-				Burger fortniteBurger = new Burger((int) this.posX, (int) this.posY, 1);
-				return fortniteBurger;
+				Bubly holyBubly = new Bubly((int) this.posX, (int) this.posY, 1);
+				return holyBubly;
 			}
 		}
 		return null;

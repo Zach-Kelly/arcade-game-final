@@ -1,6 +1,6 @@
 
 public class Burger extends Projectile {
-public static final String SPRITE_PATH = "src/Sprites/Bubly.png";
+public static final String SPRITE_PATH = "src/Sprites/big_buford.png";
 public static final int WIDTH = 100;
 public static final int HEIGHT = 100;
 public static final double HIT_BOX_SCALE=1;

@@ -14,10 +14,10 @@ public abstract class Entity {
 	protected double posX;
 	protected double posY;
 	private double dx = 0;
-	private double dy = 0;
+	protected double dy = 0;
 	protected int height;
 	protected int width;
-	private boolean onGround = false;
+	protected boolean onGround = false;
 	private boolean isDead = false;
 	protected boolean lastDirectionRight = true;
 
