@@ -1,4 +1,8 @@
+import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
+
+import javax.swing.JComponent;
 
 public class Hero extends Entity {
 
@@ -12,6 +16,8 @@ public class Hero extends Entity {
 	private static final double Y_VELOCITY_MAX = 19;
 	private static final double GRAVITY = 1;
 	
+	private ArrayList<Projectile> heroProjectiles = new ArrayList<Projectile>();
+	private boolean shootReleased = true;
 
 	public Hero(int startPosX, int startPosY) {
 
@@ -30,21 +36,58 @@ public class Hero extends Entity {
 
 	}
 	
-
 	@Override
-	public Projectile shootProjectile() {
-		// TODO Auto-generated method stub
-		if(this.keyStates.get("shoot") ==1) {
-			if (this.lastDirectionRight) {
-				Bubly holyBubly = new Bubly((int) this.posX, (int) this.posY, -1);
-				return holyBubly;
-			}
-			else {
-				Bubly holyBubly = new Bubly((int) this.posX, (int) this.posY, 1);
-				return holyBubly;
+	public void updatePosition() {
+		
+		super.updatePosition();
+		Projectile p = null;
+		for (int i = this.heroProjectiles.size() - 1; i > -1; i--) {
+			p = this.heroProjectiles.get(i);
+			if (p.isDead()) {
+				this.heroProjectiles.remove(p);
+			} else {
+				p.updatePosition();
 			}
 		}
-		return null;
+		
+	}
+	
+	@Override
+	public void drawOn(Graphics2D g2, JComponent observer) {
+		
+		super.drawOn(g2, observer);
+		for (Projectile p : this.heroProjectiles) {
+			p.drawOn(g2, observer);
+		}
+		
+	}
+	
+	@Override
+	public void checkObstacleCollision(Obstacle o) {
+		
+		super.checkObstacleCollision(o);
+		for (Projectile p : this.heroProjectiles) {
+			p.checkObstacleCollision(o);
+		}
+		
+	}
+
+	@Override
+	public void shootProjectile() {
+		
+		if (this.keyStates.get("shoot") == 0) {
+			this.shootReleased = true;
+		}
+		if (this.heroProjectiles.size() <= 10 && this.shootReleased) {
+			int direction = 1;
+			if(this.keyStates.get("shoot") ==1) {
+				if (this.lastDirectionRight) {
+					direction = -1;
+				}
+				this.shootReleased = false;
+				this.heroProjectiles.add(new Bubly((int) this.posX, (int) this.posY, direction));
+			}
+		}
 	}
 
 }

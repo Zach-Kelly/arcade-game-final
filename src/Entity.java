@@ -67,7 +67,7 @@ public abstract class Entity {
 
 		
 
-	public abstract Projectile shootProjectile();
+	public abstract void shootProjectile();
 
 	public void checkObstacleCollision(Obstacle o) {
 

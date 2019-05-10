@@ -1,5 +1,6 @@
 import java.awt.geom.Rectangle2D;
 
+//TODO: kill offscreen projectiles
 public abstract class Projectile extends Entity {
 
 	private static final int PROJECTILE_WIDTH = 68;
@@ -41,6 +42,11 @@ public abstract class Projectile extends Entity {
 	@Override
 	public void updatePosition() {
 		super.updatePosition();
+		boolean offScreenX = Math.abs(this.posX - 500 - this.width / 2) > 500 + this.width;
+		boolean offScreenY = Math.abs(this.posY - 500 - this.height / 2) > 500 + this.height;
+		if (offScreenX || offScreenY) {
+			this.markForDeath();
+		}
 		if (initialDirection > 0) {
 			handleKeyInteraction("left", 1);
 		}

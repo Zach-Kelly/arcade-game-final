@@ -10,9 +10,9 @@ public class Bubly extends Projectile {
 		}
 
 	@Override
-	public Projectile shootProjectile() {
+	public void shootProjectile() {
 		// TODO Auto-generated method stub
-		return null;
+		
 	}
 
 	@Override

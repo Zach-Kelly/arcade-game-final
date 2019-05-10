@@ -18,10 +18,9 @@ public static final double HIT_BOX_SCALE=1;
 
 
 	@Override
-	public Projectile shootProjectile() {
+	public void shootProjectile() {
 		// TODO Auto-generated method stub
-		return null;
-		
+				
 	}
 
 }

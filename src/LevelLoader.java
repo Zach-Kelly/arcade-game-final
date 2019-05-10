@@ -56,11 +56,10 @@ public class LevelLoader {
 		}
 		
 		ArrayList<Entity> projectiles = new ArrayList<Entity>();
-		for (Entity e : this.entities) {
+		for (int i = 0; i < this.entities.size(); i++) {
+			Entity e = this.entities.get(i);
 			e.updatePosition();
-			if (e.shootProjectile()!=null) {
-				projectiles.add(e.shootProjectile());
-			}
+			e.shootProjectile();
 		}
 		for (Entity e : projectiles) {
 			if (e !=null) {
