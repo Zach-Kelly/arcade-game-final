@@ -13,6 +13,7 @@ public class LevelLoader {
 	private Color bgColor;
 	private ArrayList<Obstacle> obstacles;
 	private ArrayList<Entity> entities;
+	//
 	// private ArrayList<Projectile> enemyProjectiles;
 	private KeyboardListener keyListener;
 
