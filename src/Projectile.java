@@ -1,6 +1,8 @@
 import java.awt.geom.Rectangle2D;
 
-//TODO: kill offscreen projectiles
+//TODO: hitbox scale might be unneeded
+//TODO: draw behind the hero/monsters
+//TODO: destroy when walls or platforms are hit
 public abstract class Projectile extends Entity {
 
 	private static final int PROJECTILE_WIDTH = 68;

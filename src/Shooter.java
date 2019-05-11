@@ -1,16 +1,18 @@
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
+//TODO: make a shooter abstract class for hero and this
 public class Shooter extends Enemy {
 	public static final int SHOOTER_WIDTH = 100;
 	public static final int SHOOTER_HEIGHT = 100;
-	private static final String SPRITE_PATH = "src/Sprites/fortniteburger.png";
+	private static final String SPRITE_PATH = "src/Sprites/FortniteBurger.png";
 	private static final double X_VELOCITY = 0.2;
 	private static final double X_VELOCITY_MAX = 6;
 	private static final double X_DRAG = 0.1;
 	private static final double Y_VELOCITY = -6;
 	private static final double Y_VELOCITY_MAX = 7;
 	private static final double GRAVITY = 0.1;
+	private static final int SHOOTING_DELAY = 500;
 
 	private long timeOfLastShot;
 
@@ -70,25 +72,13 @@ public class Shooter extends Enemy {
 
 		int xOffset = (int) (this.hero.posX - this.posX);
 		int direction = 1;
-		if (canShoot()) {
+		if (System.currentTimeMillis() - timeOfLastShot > SHOOTING_DELAY) {
 			if (xOffset > 0) {
 				direction = -1;
 			}
 			timeOfLastShot = System.currentTimeMillis();
 			this.entities.add(new Burger((int) this.posX, (int) this.posY, direction));
 		}
-
-	}
-
-	private boolean canShoot() {
-		
-		return System.currentTimeMillis() - timeOfLastShot > 2000;
-
-	}
-
-	@Override
-	public void die() {
-		// TODO Auto-generated method stub
 
 	}
 

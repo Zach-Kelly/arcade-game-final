@@ -15,7 +15,7 @@ public class Hero extends Entity {
 	private static final double Y_VELOCITY = -20;
 	private static final double Y_VELOCITY_MAX = 19;
 	private static final double GRAVITY = 1;
-	
+
 	private ArrayList<Projectile> heroProjectiles = new ArrayList<Projectile>();
 	private boolean shootReleased = true;
 
@@ -31,16 +31,10 @@ public class Hero extends Entity {
 	}
 
 	@Override
-	public void die() {
-		// TODO Auto-generated method stub
-
-	}
-	
-	@Override
 	public void updatePosition() {
-		
+
 		super.updatePosition();
-		Projectile p = null;
+		Projectile p;
 		for (int i = this.heroProjectiles.size() - 1; i > -1; i--) {
 			p = this.heroProjectiles.get(i);
 			if (p.isDead()) {
@@ -49,38 +43,38 @@ public class Hero extends Entity {
 				p.updatePosition();
 			}
 		}
-		
+
 	}
-	
+
 	@Override
 	public void drawOn(Graphics2D g2, JComponent observer) {
-		
+
 		super.drawOn(g2, observer);
 		for (Projectile p : this.heroProjectiles) {
 			p.drawOn(g2, observer);
 		}
-		
+
 	}
-	
+
 	@Override
 	public void checkObstacleCollision(Obstacle o) {
-		
+
 		super.checkObstacleCollision(o);
 		for (Projectile p : this.heroProjectiles) {
 			p.checkObstacleCollision(o);
 		}
-		
+
 	}
 
 	@Override
 	public void shootProjectile() {
-		
+
 		if (this.keyStates.get("shoot") == 0) {
 			this.shootReleased = true;
 		}
 		if (this.heroProjectiles.size() <= 10 && this.shootReleased) {
 			int direction = 1;
-			if(this.keyStates.get("shoot") ==1) {
+			if (this.keyStates.get("shoot") == 1) {
 				if (this.lastDirectionRight) {
 					direction = -1;
 				}
@@ -88,6 +82,7 @@ public class Hero extends Entity {
 				this.heroProjectiles.add(new Bubly((int) this.posX, (int) this.posY, direction));
 			}
 		}
+
 	}
 
 }

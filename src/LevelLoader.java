@@ -7,14 +7,16 @@ import java.util.Scanner;
 
 import javax.swing.JComponent;
 
+//TODO: organize methods
 public class LevelLoader {
-	// TODO: convert subtypes to strings for readability
+
+	private static final int ENEMY_RUNNER = 0;
+	private static final int ENEMY_SHOOTER = 1;
+
 	private Scanner scanner;
 	private Color bgColor;
 	private ArrayList<Obstacle> obstacles;
 	private ArrayList<Entity> entities;
-	//
-	// private ArrayList<Projectile> enemyProjectiles;
 	private KeyboardListener keyListener;
 
 	public void loadFile(String path) {
@@ -43,18 +45,18 @@ public class LevelLoader {
 	}
 
 	public void updateEntityActions() {
-		
+
 		ArrayList<Entity> dead = new ArrayList<Entity>();
 		for (Entity e : this.entities) {
 			if (e.isDead()) {
 				dead.add(e);
 			}
 		}
-		
+
 		for (Entity e : dead) {
 			this.entities.remove(e);
 		}
-		
+
 		ArrayList<Entity> projectiles = new ArrayList<Entity>();
 		for (int i = 0; i < this.entities.size(); i++) {
 			Entity e = this.entities.get(i);
@@ -62,7 +64,7 @@ public class LevelLoader {
 			e.shootProjectile();
 		}
 		for (Entity e : projectiles) {
-			if (e !=null) {
+			if (e != null) {
 				this.entities.add(e);
 			}
 		}
@@ -73,7 +75,6 @@ public class LevelLoader {
 
 		this.obstacles = new ArrayList<Obstacle>();
 		this.entities = new ArrayList<Entity>();
-		// this.enemyProjectiles = new ArrayList<Projectile>();
 
 		Color[] obstacleColors = getObstacleColors();
 		createHero();
@@ -92,19 +93,11 @@ public class LevelLoader {
 		}
 		for (int i = 1; i < this.entities.size(); i++) {
 			if (this.entities.get(0).getFullHitBox().intersects(this.entities.get(i).getFullHitBox())) {
-				this.entities.get(0).die();
+				this.entities.get(0).markForDeath();
 			}
 		}
 
 	}
-	// TODO
-//	public void updateProjectilePositions() {
-//		
-//		for (Projectile p : this.enemyProjectiles) {
-//			p.updatePosition();
-//		}
-//		
-//	}
 
 	private Color[] getObstacleColors() throws Exception {
 
@@ -145,11 +138,10 @@ public class LevelLoader {
 			int x = this.scanner.nextInt();
 			int y = this.scanner.nextInt();
 			int subtype = this.scanner.nextInt();
-			if (subtype == 0) {
+			if (subtype == ENEMY_RUNNER) {
 				this.entities.add(new Runner(x, y, (Hero) this.entities.get(0), this.entities));
 			}
-			if (subtype == 1) {
-				// TODO: shooter
+			if (subtype == ENEMY_SHOOTER) {
 				this.entities.add(new Shooter(x, y, (Hero) this.entities.get(0), this.entities));
 			}
 			this.scanner.nextLine();

@@ -1,3 +1,4 @@
+import java.awt.BasicStroke;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.Rectangle2D;
@@ -7,9 +8,13 @@ import java.util.HashMap;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 
+//TODO: screen wrap around
 public abstract class Entity {
 
+	private static final int PLATFORM = 0;
+	private static final int WALL = 1;
 	private static final int HITBOX_HEIGHT = 1;
+	protected static final BasicStroke STANDARD_STROKE = new BasicStroke();
 
 	protected double posX;
 	protected double posY;
@@ -63,25 +68,22 @@ public abstract class Entity {
 
 	}
 
-	// TODO: convert keystates to boolean
-
-		
-
+	// TODO: make this an interface
 	public abstract void shootProjectile();
 
 	public void checkObstacleCollision(Obstacle o) {
 
 		this.updateHitBox();
 		if (o.intersects(this.obstacleHitBox)) {
-			if (o.getSubtype() == 0) {
+			if (o.getSubtype() == PLATFORM) {
 				if (this.dy >= 0) {
 					this.posY = o.getMinY() - this.height;
 					this.dy = 0;
 					this.onGround = true;
 				}
 			}
-			if (o.getSubtype() == 1) {
-				if (this.obstacleHitBox.getCenterX() - o.getCenterX() < 0) { // left of wall
+			if (o.getSubtype() == WALL) {
+				if (this.obstacleHitBox.getCenterX() - o.getCenterX() < 0) {
 					this.posX = o.getMinX() - this.width;
 				} else {
 					this.posX = o.getMaxX();
@@ -133,19 +135,17 @@ public abstract class Entity {
 		}
 
 	}
-	
 
-	
 	protected void updateHitBox() {
+
 		int hitBoxY = (int) (this.posY + this.height - HITBOX_HEIGHT);
 		this.obstacleHitBox.setRect(this.posX, hitBoxY, this.obstacleHitBox.getWidth(), HITBOX_HEIGHT);
+
 	}
 
 	public Rectangle2D.Double getFullHitBox() {
 		return fullHitBox;
 	}
-
-	public abstract void die();
 
 	public void markForDeath() {
 		this.isDead = true;

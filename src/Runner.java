@@ -66,12 +66,6 @@ public class Runner extends Enemy {
 	}
 
 	@Override
-	public void die() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void shootProjectile() {
 		// TODO Auto-generated method stub
 		
