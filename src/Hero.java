@@ -34,14 +34,16 @@ public class Hero extends Entity {
 	@Override
 	public void updatePosition() {
 
-		super.updatePosition();
-		Projectile p;
-		for (int i = this.heroProjectiles.size() - 1; i > -1; i--) {
-			p = this.heroProjectiles.get(i);
-			if (p.isDead()) {
-				this.heroProjectiles.remove(p);
-			} else {
-				p.updatePosition();
+		if (!this.isDead()) {
+			super.updatePosition();
+			Projectile p;
+			for (int i = this.heroProjectiles.size() - 1; i > -1; i--) {
+				p = this.heroProjectiles.get(i);
+				if (p.isDead()) {
+					this.heroProjectiles.remove(p);
+				} else {
+					p.updatePosition();
+				}
 			}
 		}
 
@@ -50,9 +52,11 @@ public class Hero extends Entity {
 	@Override
 	public void drawOn(Graphics2D g2, JComponent observer) {
 
-		super.drawOn(g2, observer);
-		for (Projectile p : this.heroProjectiles) {
-			p.drawOn(g2, observer);
+		if (!this.isDead()) {
+			super.drawOn(g2, observer);
+			for (Projectile p : this.heroProjectiles) {
+				p.drawOn(g2, observer);
+			}
 		}
 
 	}
@@ -70,14 +74,6 @@ public class Hero extends Entity {
 	public void checkHeroProjectileCollision(Entity e) {
 
 		for (Projectile p : this.heroProjectiles) {
-//			System.out.print(e.getFullHitBox().x);
-//			System.out.print("	");
-//			System.out.print(e.getFullHitBox().y);
-//			System.out.print("	");
-//			System.out.print(p.getFullHitBox().x);
-//			System.out.print("	");
-//			System.out.print(p.getFullHitBox().y);
-//			System.out.println();
 			if (p.getFullHitBox().intersects(e.getFullHitBox())) {
 				p.markForDeath();
 				e.markForDeath();
@@ -89,17 +85,19 @@ public class Hero extends Entity {
 	@Override
 	public void shootProjectile() {
 
-		if (this.keyStates.get("shoot") == 0) {
-			this.shootReleased = true;
-		}
-		if (this.heroProjectiles.size() < MAX_NUM_PROJECTILES && this.shootReleased) {
-			int direction = 1;
-			if (this.keyStates.get("shoot") == 1) {
-				if (this.lastDirectionRight) {
-					direction = -1;
+		if (!this.isDead()) {
+			if (this.keyStates.get("shoot") == 0) {
+				this.shootReleased = true;
+			}
+			if (this.heroProjectiles.size() < MAX_NUM_PROJECTILES && this.shootReleased) {
+				int direction = 1;
+				if (this.keyStates.get("shoot") == 1) {
+					if (this.lastDirectionRight) {
+						direction = -1;
+					}
+					this.shootReleased = false;
+					this.heroProjectiles.add(new Bubly((int) this.posX, (int) this.posY, direction));
 				}
-				this.shootReleased = false;
-				this.heroProjectiles.add(new Bubly((int) this.posX, (int) this.posY, direction));
 			}
 		}
 
