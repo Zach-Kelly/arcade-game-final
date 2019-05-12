@@ -15,12 +15,14 @@ public class Shooter extends Enemy {
 	private static final int SHOOTING_DELAY = 500;
 
 	private long timeOfLastShot;
+	private ArrayList<Entity> projectiles;
 
-	public Shooter(int posX, int posY, Hero hero, ArrayList<Entity> entity) {
+	public Shooter(int posX, int posY, Hero hero, ArrayList<Entity> projectiles) {
 
-		super(posX, posY, SHOOTER_WIDTH, SHOOTER_HEIGHT, SPRITE_PATH, hero, entity);
+		super(posX, posY, SHOOTER_WIDTH, SHOOTER_HEIGHT, SPRITE_PATH, hero);
 		addMovementValues(X_VELOCITY, X_VELOCITY_MAX, X_DRAG, Y_VELOCITY, Y_VELOCITY_MAX, GRAVITY);
 		this.timeOfLastShot = 0;
+		this.projectiles = projectiles;
 
 	}
 
@@ -77,7 +79,7 @@ public class Shooter extends Enemy {
 				direction = -1;
 			}
 			timeOfLastShot = System.currentTimeMillis();
-			this.entities.add(new Burger((int) this.posX, (int) this.posY, direction));
+			this.projectiles.add(new Burger((int) this.posX, (int) this.posY, direction));
 		}
 
 	}

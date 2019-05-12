@@ -18,9 +18,9 @@ public abstract class Enemy extends Entity {
 	private Ellipse2D.Double bubble;
 	protected Hero hero;
 
-	public Enemy(int posX, int posY, int width, int height, String spritePath, Hero hero, ArrayList<Entity> entity) {
+	public Enemy(int posX, int posY, int width, int height, String spritePath, Hero hero) {
 
-		super(posX, posY, width, height, spritePath, entity);
+		super(posX, posY, width, height, spritePath);
 		this.hero = hero;
 		double dWidth = (double) this.width;
 		double dHeight = (double) this.height;

@@ -15,13 +15,14 @@ public class Hero extends Entity {
 	private static final double Y_VELOCITY = -20;
 	private static final double Y_VELOCITY_MAX = 19;
 	private static final double GRAVITY = 1;
+	private static final int MAX_NUM_PROJECTILES = 3;
 
 	private ArrayList<Projectile> heroProjectiles = new ArrayList<Projectile>();
 	private boolean shootReleased = true;
 
 	public Hero(int startPosX, int startPosY) {
 
-		super(startPosX, startPosY, HERO_WIDTH, HERO_HEIGHT, SPRITE_PATH, null);
+		super(startPosX, startPosY, HERO_WIDTH, HERO_HEIGHT, SPRITE_PATH);
 		addMovementValues(X_VELOCITY, X_VELOCITY_MAX, X_DRAG, Y_VELOCITY, Y_VELOCITY_MAX, GRAVITY);
 
 	}
@@ -66,13 +67,32 @@ public class Hero extends Entity {
 
 	}
 
+	public void checkHeroProjectileCollision(Entity e) {
+
+		for (Projectile p : this.heroProjectiles) {
+//			System.out.print(e.getFullHitBox().x);
+//			System.out.print("	");
+//			System.out.print(e.getFullHitBox().y);
+//			System.out.print("	");
+//			System.out.print(p.getFullHitBox().x);
+//			System.out.print("	");
+//			System.out.print(p.getFullHitBox().y);
+//			System.out.println();
+			if (p.getFullHitBox().intersects(e.getFullHitBox())) {
+				p.markForDeath();
+				e.markForDeath();
+			}
+		}
+
+	}
+
 	@Override
 	public void shootProjectile() {
 
 		if (this.keyStates.get("shoot") == 0) {
 			this.shootReleased = true;
 		}
-		if (this.heroProjectiles.size() <= 10 && this.shootReleased) {
+		if (this.heroProjectiles.size() < MAX_NUM_PROJECTILES && this.shootReleased) {
 			int direction = 1;
 			if (this.keyStates.get("shoot") == 1) {
 				if (this.lastDirectionRight) {

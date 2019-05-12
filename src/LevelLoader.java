@@ -3,25 +3,35 @@ import java.awt.Graphics2D;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import javax.swing.JComponent;
 
-//TODO: organize methods
 public class LevelLoader {
 
 	private static final int ENEMY_RUNNER = 0;
 	private static final int ENEMY_SHOOTER = 1;
+	private static final int HERO = 0;
 
-	private Scanner scanner;
-	private Color bgColor;
-	private ArrayList<Obstacle> obstacles;
 	private ArrayList<Entity> entities;
-	private KeyboardListener keyListener;
+	private ArrayList<Entity> projectiles;
+	private ArrayList<Obstacle> obstacles;
+	private Color bgColor;
+	private GameKeyboardListener keyListener;
+	private Scanner scanner;
 
+	//
+	// initial level loading
+	//
+
+	/**
+	 * Starts the process of loading and constructing a level.
+	 * 
+	 * @param path the path of the level file to be loaded
+	 */
 	public void loadFile(String path) {
 
-		System.out.println(path);
 		try {
 			this.scanner = new Scanner(new File(path));
 		} catch (FileNotFoundException e) {
@@ -36,66 +46,17 @@ public class LevelLoader {
 
 	}
 
-	public KeyboardListener getKeyListener() {
-		return keyListener;
-	}
-
-	public void addKeyListener(KeyboardListener keyListener) {
-		this.keyListener = keyListener;
-	}
-
-	public void updateEntityActions() {
-
-		ArrayList<Entity> dead = new ArrayList<Entity>();
-		for (Entity e : this.entities) {
-			if (e.isDead()) {
-				dead.add(e);
-			}
-		}
-
-		for (Entity e : dead) {
-			this.entities.remove(e);
-		}
-
-		ArrayList<Entity> projectiles = new ArrayList<Entity>();
-		for (int i = 0; i < this.entities.size(); i++) {
-			Entity e = this.entities.get(i);
-			e.updatePosition();
-			e.shootProjectile();
-		}
-		for (Entity e : projectiles) {
-			if (e != null) {
-				this.entities.add(e);
-			}
-		}
-
-	}
-
 	private void constructLevel() throws Exception {
 
 		this.obstacles = new ArrayList<Obstacle>();
 		this.entities = new ArrayList<Entity>();
+		this.projectiles = new ArrayList<Entity>();
 
 		Color[] obstacleColors = getObstacleColors();
 		createHero();
 		createMonsters();
 		createObstacles(obstacleColors);
 		this.scanner.close();
-
-	}
-
-	public void handleCollisions() {
-
-		for (Obstacle o : this.obstacles) {
-			for (Entity entity : this.entities) {
-				entity.checkObstacleCollision(o);
-			}
-		}
-		for (int i = 1; i < this.entities.size(); i++) {
-			if (this.entities.get(0).getFullHitBox().intersects(this.entities.get(i).getFullHitBox())) {
-				this.entities.get(0).markForDeath();
-			}
-		}
 
 	}
 
@@ -115,6 +76,15 @@ public class LevelLoader {
 
 	}
 
+	private Color convertTextToColor() {
+
+		int r = this.scanner.nextInt();
+		int g = this.scanner.nextInt();
+		int b = this.scanner.nextInt();
+		return new Color(r, g, b);
+
+	}
+
 	private void createHero() throws Exception {
 
 		this.scanner.nextLine();
@@ -124,7 +94,7 @@ public class LevelLoader {
 			int x = this.scanner.nextInt();
 			int y = this.scanner.nextInt();
 			this.entities.add(new Hero(x, y));
-			this.keyListener.addHero((Hero) this.entities.get(0));
+			this.keyListener.addHero((Hero) this.entities.get(HERO));
 		}
 
 	}
@@ -139,10 +109,10 @@ public class LevelLoader {
 			int y = this.scanner.nextInt();
 			int subtype = this.scanner.nextInt();
 			if (subtype == ENEMY_RUNNER) {
-				this.entities.add(new Runner(x, y, (Hero) this.entities.get(0), this.entities));
+				this.entities.add(new Runner(x, y, (Hero) this.entities.get(HERO)));
 			}
 			if (subtype == ENEMY_SHOOTER) {
-				this.entities.add(new Shooter(x, y, (Hero) this.entities.get(0), this.entities));
+				this.entities.add(new Shooter(x, y, (Hero) this.entities.get(HERO), this.projectiles));
 			}
 			this.scanner.nextLine();
 		}
@@ -170,27 +140,124 @@ public class LevelLoader {
 
 	}
 
-	private Color convertTextToColor() {
+	///
+	/// getters and setters
+	///
 
-		int r = this.scanner.nextInt();
-		int g = this.scanner.nextInt();
-		int b = this.scanner.nextInt();
-		return new Color(r, g, b);
-
+	/**
+	 * Returns the KeyListener used for all keyboard input.
+	 * 
+	 * @return
+	 */
+	public GameKeyboardListener getKeyListener() {
+		return keyListener;
 	}
 
+	/**
+	 * Sets the KeyListener used for all keyboard input.
+	 * 
+	 * @param keyListener
+	 */
+	public void setKeyListener(GameKeyboardListener keyListener) {
+		this.keyListener = keyListener;
+	}
+
+	/**
+	 * Gets the background color of the currently loaded level.
+	 * 
+	 * @return
+	 */
 	public Color getBgColor() {
 		return bgColor;
 	}
 
+	///
+	/// update methods
+	///
+
+	/**
+	 * Updates the positions of all entities, checks if they should shoot a
+	 * projectile, and removes any dead entities.
+	 */
+	public void updateEntityActions() {
+
+		updateActionsHelper(this.entities.subList(1, this.entities.size()));
+		updateActionsHelper(this.projectiles);
+		this.entities.get(HERO).updatePosition();
+		this.entities.get(HERO).shootProjectile();
+
+	}
+
+	private void updateActionsHelper(List<Entity> list) {
+
+		Entity e;
+		for (int i = list.size() - 1; i > -1; i--) {
+			e = list.get(i);
+			e.updatePosition();
+			e.shootProjectile();
+			if (e.isDead()) {
+				list.remove(e);
+			}
+		}
+
+	}
+
+	/**
+	 * Checks for collision between entities and obstacles/each other.
+	 */
+	public void handleCollisions() {
+
+		for (Obstacle o : this.obstacles) {
+			this.entities.get(HERO).checkObstacleCollision(o);
+		}
+		for (Entity p : this.projectiles) {
+			collisionHelper(p);
+		}
+		for (Entity e : this.entities.subList(1, this.entities.size())) {
+			collisionHelper(e);
+		}
+
+	}
+
+	private void collisionHelper(Entity e) {
+		
+		Hero hero = (Hero) this.entities.get(HERO);
+		for (Obstacle o : this.obstacles) {
+			e.checkObstacleCollision(o);
+		}
+		if (hero.getFullHitBox().intersects(e.getFullHitBox())) {
+			hero.markForDeath();
+		}
+		hero.checkHeroProjectileCollision(e);
+
+	}
+
+	///
+	/// drawing methods
+	///
+
+	/**
+	 * Causes all entities to be displayed.
+	 * 
+	 * @param g2       the Graphics2D object used to draw everything
+	 * @param observer the observer needed to draw sprite images
+	 */
 	public void drawEntities(Graphics2D g2, JComponent observer) {
 
 		for (Entity e : this.entities) {
 			e.drawOn(g2, observer);
 		}
+		for (Entity p : this.projectiles) {
+			p.drawOn(g2, observer);
+		}
 
 	}
 
+	/**
+	 * Causes all obstacles to be displayed.
+	 * 
+	 * @param g2 the Graphics2D object used to draw everything
+	 */
 	public void drawObstacles(Graphics2D g2) {
 
 		for (Obstacle o : this.obstacles) {

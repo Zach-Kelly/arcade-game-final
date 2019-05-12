@@ -16,6 +16,16 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>src/MiscResources/Bismarck.png</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/MiscResources/Bismarck.png</locationURI>
+		</link>
+		<link>
+			<name>src/MiscResources/TitleScreen.png</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/MiscResources/TitleScreen.png</locationURI>
+		</link>
+		<link>
 			<name>src/Sprites/Bubly.png</name>
 			<type>1</type>
 			<locationURI>PROJECT_LOC/src/Sprites/Bubly.png</locationURI>

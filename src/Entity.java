@@ -1,8 +1,8 @@
 import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.Rectangle2D;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.ImageIcon;
@@ -36,10 +36,9 @@ public abstract class Entity {
 	protected HashMap<String, Integer> keyStates = new HashMap<String, Integer>();
 	protected Rectangle2D.Double obstacleHitBox;
 	private Rectangle2D.Double fullHitBox;
-	protected ArrayList<Entity> entities;
 	private Image sprite;
 
-	public Entity(int posX, int posY, int width, int height, String spritePath, ArrayList<Entity> entities) {
+	public Entity(int posX, int posY, int width, int height, String spritePath) {
 
 		ImageIcon icon = new ImageIcon(spritePath);
 		sprite = icon.getImage().getScaledInstance(width, height, Image.SCALE_AREA_AVERAGING);
@@ -53,7 +52,6 @@ public abstract class Entity {
 		this.keyStates.put("left", 0);
 		this.keyStates.put("right", 0);
 		this.keyStates.put("shoot", 0);
-		this.entities = entities;
 
 	}
 
@@ -140,6 +138,7 @@ public abstract class Entity {
 
 		int hitBoxY = (int) (this.posY + this.height - HITBOX_HEIGHT);
 		this.obstacleHitBox.setRect(this.posX, hitBoxY, this.obstacleHitBox.getWidth(), HITBOX_HEIGHT);
+		this.fullHitBox.setFrame(this.posX, this.posY, this.width, this.height);
 
 	}
 
@@ -157,6 +156,8 @@ public abstract class Entity {
 
 	public void drawOn(Graphics2D g2, JComponent observer) {
 		g2.drawImage(sprite, (int) this.posX, (int) this.posY, observer);
+		g2.setColor(Color.ORANGE);
+		g2.draw(this.fullHitBox);
 	}
 
 	public void handleKeyInteraction(String key, int state) {

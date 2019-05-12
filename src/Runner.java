@@ -1,5 +1,4 @@
 import java.awt.geom.Point2D;
-import java.util.ArrayList;
 
 public class Runner extends Enemy {
 
@@ -13,9 +12,9 @@ public class Runner extends Enemy {
 	private static final double Y_VELOCITY_MAX = 7;
 	private static final double GRAVITY = 0.1;
 
-	public Runner(int posX, int posY, Hero hero, ArrayList<Entity> entities) {
+	public Runner(int posX, int posY, Hero hero) {
 
-		super(posX, posY, RUNNER_WIDTH, RUNNER_HEIGHT, SPRITE_PATH, hero, entities);
+		super(posX, posY, RUNNER_WIDTH, RUNNER_HEIGHT, SPRITE_PATH, hero);
 		addMovementValues(X_VELOCITY, X_VELOCITY_MAX, X_DRAG, Y_VELOCITY, Y_VELOCITY_MAX, GRAVITY);
 
 	}
@@ -68,7 +67,7 @@ public class Runner extends Enemy {
 	@Override
 	public void shootProjectile() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
