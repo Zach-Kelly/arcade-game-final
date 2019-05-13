@@ -38,7 +38,7 @@
 		<link>
 			<name>src/Sprites/Mop.png</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Desktop/Mop.png</locationURI>
+			<location>C:/Users/klinesr/git/arcade-game-arcade-27/src/Sprites/Mop.png</location>
 		</link>
 		<link>
 			<name>src/Sprites/Thanos.png</name>
