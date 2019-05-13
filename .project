@@ -36,6 +36,11 @@
 			<locationURI>PROJECT_LOC/src/Sprites/Hero.png</locationURI>
 		</link>
 		<link>
+			<name>src/Sprites/Mop.png</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Desktop/Mop.png</locationURI>
+		</link>
+		<link>
 			<name>src/Sprites/Thanos.png</name>
 			<type>1</type>
 			<locationURI>PROJECT_LOC/src/Sprites/Thanos.png</locationURI>
