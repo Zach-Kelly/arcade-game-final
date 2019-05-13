@@ -17,9 +17,9 @@ public class Shooter extends Enemy {
 	private long timeOfLastShot;
 	private ArrayList<Entity> projectiles;
 
-	public Shooter(int posX, int posY, Hero hero, ArrayList<Entity> projectiles) {
+	public Shooter(int posX, int posY, Hero hero, ArrayList<Entity> projectiles, ArrayList<Entity> fruit) {
 
-		super(posX, posY, SHOOTER_WIDTH, SHOOTER_HEIGHT, SPRITE_PATH, hero);
+		super(posX, posY, SHOOTER_WIDTH, SHOOTER_HEIGHT, SPRITE_PATH, hero, fruit);
 		addMovementValues(X_VELOCITY, X_VELOCITY_MAX, X_DRAG, Y_VELOCITY, Y_VELOCITY_MAX, GRAVITY);
 		this.timeOfLastShot = 0;
 		this.projectiles = projectiles;
@@ -53,7 +53,7 @@ public class Shooter extends Enemy {
 	}
 
 	private void verticalMovement(double yOffset) {
-
+		
 		if (yOffset < 0) {
 			handleKeyInteraction("up", 1);
 		} else {
@@ -63,23 +63,28 @@ public class Shooter extends Enemy {
 
 	@Override
 	public void updatePosition() {
-
-		super.updatePosition();
-		movementControl();
+		if (isTrapped) {
+			this.bubbleMovement();
+		}else {
+			super.updatePosition();
+			movementControl();
+		}
+		
 
 	}
 
 	@Override
 	public void shootProjectile() {
-
-		int xOffset = (int) (this.hero.posX - this.posX);
-		int direction = 1;
-		if (System.currentTimeMillis() - timeOfLastShot > SHOOTING_DELAY) {
-			if (xOffset > 0) {
-				direction = -1;
+		if(!isTrapped) {
+			int xOffset = (int) (this.hero.posX - this.posX);
+			int direction = 1;
+			if (System.currentTimeMillis() - timeOfLastShot > SHOOTING_DELAY) {
+				if (xOffset > 0) {
+					direction = -1;
+				}
+				timeOfLastShot = System.currentTimeMillis();
+				this.projectiles.add(new Burger((int) this.posX, (int) this.posY, direction));
 			}
-			timeOfLastShot = System.currentTimeMillis();
-			this.projectiles.add(new Burger((int) this.posX, (int) this.posY, direction));
 		}
 
 	}

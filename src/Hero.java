@@ -76,7 +76,8 @@ public class Hero extends Entity {
 		for (Projectile p : this.heroProjectiles) {
 			if (p.getFullHitBox().intersects(e.getFullHitBox())) {
 				p.markForDeath();
-				e.markForDeath();
+				e.isTrapped=true;
+				e.timeTrapped = System.currentTimeMillis();
 			}
 		}
 

@@ -13,7 +13,7 @@ public abstract class Entity {
 
 	private static final int PLATFORM = 0;
 	private static final int WALL = 1;
-	private static final int HITBOX_HEIGHT = 1;
+	protected static final int HITBOX_HEIGHT = 1;
 	protected static final BasicStroke STANDARD_STROKE = new BasicStroke();
 
 	protected double posX;
@@ -35,8 +35,13 @@ public abstract class Entity {
 
 	protected HashMap<String, Integer> keyStates = new HashMap<String, Integer>();
 	protected Rectangle2D.Double obstacleHitBox;
-	private Rectangle2D.Double fullHitBox;
+	protected Rectangle2D.Double fullHitBox;
 	private Image sprite;
+	
+	protected long timeTrapped;
+	protected boolean isTrapped;
+	
+	protected boolean isEdible;
 
 	public Entity(int posX, int posY, int width, int height, String spritePath) {
 
@@ -52,6 +57,8 @@ public abstract class Entity {
 		this.keyStates.put("left", 0);
 		this.keyStates.put("right", 0);
 		this.keyStates.put("shoot", 0);
+		
+		this.isTrapped= false;
 
 	}
 
@@ -74,11 +81,14 @@ public abstract class Entity {
 		this.updateHitBox();
 		if (o.intersects(this.obstacleHitBox)) {
 			if (o.getSubtype() == PLATFORM) {
-				if (this.dy >= 0) {
-					this.posY = o.getMinY() - this.height;
-					this.dy = 0;
-					this.onGround = true;
-				}
+				
+					if (this.dy >= 0) {
+						this.posY = o.getMinY() - this.height;
+						this.dy = 0;
+						this.onGround = true;
+					}
+				
+			
 			}
 			if (o.getSubtype() == WALL) {
 				if (this.obstacleHitBox.getCenterX() - o.getCenterX() < 0) {
@@ -135,11 +145,14 @@ public abstract class Entity {
 	}
 
 	protected void updateHitBox() {
-
-		int hitBoxY = (int) (this.posY + this.height - HITBOX_HEIGHT);
-		this.obstacleHitBox.setRect(this.posX, hitBoxY, this.obstacleHitBox.getWidth(), HITBOX_HEIGHT);
-		this.fullHitBox.setFrame(this.posX, this.posY, this.width, this.height);
-
+		if (isTrapped) {
+			this.obstacleHitBox.setRect(this.posX, this.posY, this.width, this.height);
+			this.fullHitBox.setFrame(this.posX, this.posY, this.width, this.height);
+		} else {
+			int hitBoxY = (int) (this.posY + this.height - HITBOX_HEIGHT);
+			this.obstacleHitBox.setRect(this.posX, hitBoxY, this.obstacleHitBox.getWidth(), HITBOX_HEIGHT);
+			this.fullHitBox.setFrame(this.posX, this.posY, this.width, this.height);
+		}
 	}
 
 	public Rectangle2D.Double getFullHitBox() {

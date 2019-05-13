@@ -25,7 +25,8 @@ public abstract class Projectile extends Entity {
 		this.hitBoxXOffset = width * (1 - hitBoxScale);
 		this.hitBoxYOffset = height * (1 - hitBoxScale);
 		this.initialDirection = initialDirection;
-
+		
+		this.isEdible = false;
 	}
 
 	@Override

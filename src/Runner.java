@@ -1,4 +1,7 @@
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
+
+import org.omg.CosNaming.IstringHelper;
 
 public class Runner extends Enemy {
 
@@ -12,9 +15,9 @@ public class Runner extends Enemy {
 	private static final double Y_VELOCITY_MAX = 7;
 	private static final double GRAVITY = 0.1;
 
-	public Runner(int posX, int posY, Hero hero) {
+	public Runner(int posX, int posY, Hero hero, ArrayList<Entity> fruit) {
 
-		super(posX, posY, RUNNER_WIDTH, RUNNER_HEIGHT, SPRITE_PATH, hero);
+		super(posX, posY, RUNNER_WIDTH, RUNNER_HEIGHT, SPRITE_PATH, hero, fruit);
 		addMovementValues(X_VELOCITY, X_VELOCITY_MAX, X_DRAG, Y_VELOCITY, Y_VELOCITY_MAX, GRAVITY);
 
 	}
@@ -58,9 +61,13 @@ public class Runner extends Enemy {
 
 	@Override
 	public void updatePosition() {
-
-		super.updatePosition();
-		movementControl();
+		if (isTrapped) {
+			this.bubbleMovement();
+		}
+		else {
+			super.updatePosition();
+			movementControl();
+		}
 
 	}
 

@@ -17,6 +17,7 @@ public class LevelLoader {
 	private ArrayList<Entity> entities;
 	private ArrayList<Entity> projectiles;
 	private ArrayList<Obstacle> obstacles;
+	private ArrayList<Entity> fruit;
 	private Color bgColor;
 	private GameKeyboardListener keyListener;
 	private Scanner scanner;
@@ -51,6 +52,7 @@ public class LevelLoader {
 		this.obstacles = new ArrayList<Obstacle>();
 		this.entities = new ArrayList<Entity>();
 		this.projectiles = new ArrayList<Entity>();
+		this.fruit = new ArrayList<Entity>(); 
 
 		Color[] obstacleColors = getObstacleColors();
 		createHero();
@@ -109,10 +111,10 @@ public class LevelLoader {
 			int y = this.scanner.nextInt();
 			int subtype = this.scanner.nextInt();
 			if (subtype == ENEMY_RUNNER) {
-				this.entities.add(new Runner(x, y, (Hero) this.entities.get(HERO)));
+				this.entities.add(new Runner(x, y, (Hero) this.entities.get(HERO), this.fruit));
 			}
 			if (subtype == ENEMY_SHOOTER) {
-				this.entities.add(new Shooter(x, y, (Hero) this.entities.get(HERO), this.projectiles));
+				this.entities.add(new Shooter(x, y, (Hero) this.entities.get(HERO), this.projectiles, this.fruit));
 			}
 			this.scanner.nextLine();
 		}
@@ -183,6 +185,7 @@ public class LevelLoader {
 
 		updateActionsHelper(this.entities.subList(1, this.entities.size()));
 		updateActionsHelper(this.projectiles);
+		updateActionsHelper(this.fruit);
 		this.entities.get(HERO).updatePosition();
 		this.entities.get(HERO).shootProjectile();
 
@@ -216,6 +219,10 @@ public class LevelLoader {
 		for (Entity e : this.entities.subList(1, this.entities.size())) {
 			collisionHelper(e);
 		}
+		
+		for (Entity f: this.fruit) {
+			collisionHelper(f);
+		}
 
 	}
 
@@ -226,7 +233,16 @@ public class LevelLoader {
 			e.checkObstacleCollision(o);
 		}
 		if (hero.getFullHitBox().intersects(e.getFullHitBox())) {
+			if(e.isTrapped) {
+				e.markForDeath();
+				this.fruit.add(new Fruit((int) e.posX, (int) e.posY));
+			}
+			else    if (e.isEdible) {
+				e.markForDeath();
+			}
+			else {
 			hero.markForDeath();
+			}
 		}
 		hero.checkHeroProjectileCollision(e);
 
@@ -249,6 +265,10 @@ public class LevelLoader {
 		}
 		for (Entity p : this.projectiles) {
 			p.drawOn(g2, observer);
+		}
+		
+		for (Entity f : this.fruit) {
+			f.drawOn(g2, observer);
 		}
 
 	}
