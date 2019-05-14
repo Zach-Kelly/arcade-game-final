@@ -12,6 +12,8 @@ public class LevelLoader {
 
 	private static final int ENEMY_RUNNER = 0;
 	private static final int ENEMY_SHOOTER = 1;
+	private static final int ENEMY_WALKER = 2;
+	
 	private static final int HERO = 0;
 
 	private ArrayList<Entity> entities;
@@ -116,6 +118,10 @@ public class LevelLoader {
 			if (subtype == ENEMY_SHOOTER) {
 				this.entities.add(new Shooter(x, y, (Hero) this.entities.get(HERO), this.projectiles, this.fruit));
 			}
+			if (subtype == ENEMY_WALKER) {
+				this.entities.add(new Walker(x, y, (Hero) this.entities.get(HERO), this.fruit));
+			}
+
 			this.scanner.nextLine();
 		}
 		if (!hasMonsters) {
@@ -182,7 +188,7 @@ public class LevelLoader {
 	 * projectile, and removes any dead entities.
 	 */
 	public void updateEntityActions() {
-
+		
 		updateActionsHelper(this.entities.subList(1, this.entities.size()));
 		updateActionsHelper(this.projectiles);
 		updateActionsHelper(this.fruit);

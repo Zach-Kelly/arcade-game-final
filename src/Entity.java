@@ -11,8 +11,8 @@ import javax.swing.JComponent;
 //TODO: screen wrap around
 public abstract class Entity {
 
-	private static final int PLATFORM = 0;
-	private static final int WALL = 1;
+	protected static final int PLATFORM = 0;
+	protected static final int WALL = 1;
 	protected static final int HITBOX_HEIGHT = 1;
 	protected static final BasicStroke STANDARD_STROKE = new BasicStroke();
 
