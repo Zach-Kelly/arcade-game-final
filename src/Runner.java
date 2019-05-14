@@ -65,6 +65,7 @@ public class Runner extends Enemy {
 			this.bubbleMovement();
 		}
 		else {
+			this.checkLevelBoundaries();
 			super.updatePosition();
 			movementControl();
 		}

@@ -33,6 +33,8 @@ public class Hero extends Entity {
 
 	@Override
 	public void updatePosition() {
+		
+		this.checkLevelBoundaries();
 
 		if (!this.isDead()) {
 			super.updatePosition();

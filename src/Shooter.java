@@ -66,6 +66,7 @@ public class Shooter extends Enemy {
 		if (isTrapped) {
 			this.bubbleMovement();
 		}else {
+			this.checkLevelBoundaries();
 			super.updatePosition();
 			movementControl();
 		}
@@ -77,13 +78,17 @@ public class Shooter extends Enemy {
 	public void shootProjectile() {
 		if(!isTrapped) {
 			int xOffset = (int) (this.hero.posX - this.posX);
+			int yOffset = (int) (this.hero.posY - this.posY); 
 			int direction = 1;
 			if (System.currentTimeMillis() - timeOfLastShot > SHOOTING_DELAY) {
 				if (xOffset > 0) {
 					direction = -1;
 				}
-				timeOfLastShot = System.currentTimeMillis();
-				this.projectiles.add(new Burger((int) this.posX, (int) this.posY, direction));
+				
+				if (Math.abs(yOffset)<=50) {
+					timeOfLastShot = System.currentTimeMillis();
+					this.projectiles.add(new Burger((int) this.posX, (int) this.posY, direction));
+				}	
 			}
 		}
 

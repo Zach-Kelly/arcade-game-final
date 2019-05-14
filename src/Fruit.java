@@ -25,5 +25,10 @@ public class Fruit extends Entity {
 		// TODO Auto-generated method stub
 
 	}
+	@Override
+	public void updatePosition(){
+		this.checkLevelBoundaries();
+		super.updatePosition();
+	}
 
 }

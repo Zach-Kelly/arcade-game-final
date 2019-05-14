@@ -7,7 +7,7 @@ public class Walker extends Enemy {
 	private static final double X_VELOCITY = 0.25;
 	private static final double X_VELOCITY_MAX = 3;
 	private static final double X_DRAG = 0.05;
-	private static final double Y_VELOCITY = -6;
+	private static final double Y_VELOCITY = 0;
 	private static final double Y_VELOCITY_MAX = 7;
 	private static final double GRAVITY = 0.1;
 	
@@ -22,6 +22,8 @@ public class Walker extends Enemy {
 	@Override
 	public void movementControl() {
 		// TODO Auto-generated method stub
+		
+		
 		if (walkDirection>0) {
 			handleKeyInteraction("left", 0);
 			handleKeyInteraction("right", 1);
@@ -36,17 +38,10 @@ public class Walker extends Enemy {
 	
 	@Override
 	public void updatePosition() {
-		if(this.posX>1000-WALKER_WIDTH) {
-			this.posX = 999-WALKER_WIDTH;
-			this.walkDirection=-1;
-		}
-		if(this.posX<0) {
-			this.posX = 0;
-			this.walkDirection=1;
-		}
 		if (isTrapped) {
 			this.bubbleMovement();
 		}else {
+			this.checkLevelBoundaries();
 			super.updatePosition();
 			movementControl();
 		}

@@ -170,11 +170,26 @@ public abstract class Entity {
 	public void drawOn(Graphics2D g2, JComponent observer) {
 		g2.drawImage(sprite, (int) this.posX, (int) this.posY, observer);
 		g2.setColor(Color.ORANGE);
-		g2.draw(this.fullHitBox);
 	}
 
 	public void handleKeyInteraction(String key, int state) {
 		this.keyStates.put(key, state);
+	}
+	
+	public void checkLevelBoundaries() {
+		if (this.posX>1000) {
+			this.posX = 1-this.width;
+		}
+		if (this.posX<1-this.width) {
+			this.posX=999;
+		}
+		
+		if (this.posY<1-this.height) {
+			this.posY=999;
+		}
+		if (this.posY>1000) {
+			this.posY=1-this.height;
+		}
 	}
 
 }
