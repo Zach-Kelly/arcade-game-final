@@ -17,6 +17,7 @@ public class Fruit extends Entity {
 		super(posX, posY, WIDTH, HEIGHT, SPRITE_PATH);
 		addMovementValues(X_VELOCITY, X_VELOCITY_MAX, X_DRAG, Y_VELOCITY, Y_VELOCITY_MAX, GRAVITY);
 		this.isEdible = true;
+		this.pointValue = 100;
 		// TODO Auto-generated constructor stub
 	}
 
@@ -29,6 +30,13 @@ public class Fruit extends Entity {
 	public void updatePosition(){
 		this.checkLevelBoundaries();
 		super.updatePosition();
+	}
+	
+	@Override
+	public void markForDeath() {
+		Sound.mopSound();
+		this.isDead = true;
+		
 	}
 
 }

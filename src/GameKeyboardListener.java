@@ -42,6 +42,9 @@ public class GameKeyboardListener implements KeyListener {
 			if (arg0.getKeyCode() == KeyEvent.VK_SPACE) {
 				if (this.levelComponent.selectorPos == -1) {
 					this.levelComponent.isTitleScreen = false;
+					this.levelComponent.setTransitioning(true);
+					this.levelComponent.setTransitionTime();
+					Sound.jokermaSound();
 				} else {
 					//TODO: add instructions
 				}

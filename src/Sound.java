@@ -56,5 +56,40 @@ public class Sound {
 		// Need to give sound time to play, if at end of program:
 	
 	}
+	
+	public static void jokermaSound() {
+		// First way doesn't use files explicitly:
+		  try{
+	            AudioInputStream ais = AudioSystem.getAudioInputStream(new File("src/Music/jokerma.wav"));
+	            Clip test = AudioSystem.getClip();  
+	            
+	            test.open(ais);
+	            test.start();
+	    		// Need to give sound time to start, then time finish playing, if at end of program:
+	        
+	        }catch(Exception ex){
+	            ex.printStackTrace();
+	        }
+
+		  // Second way does use files explicitly:  
+		
+		// Need to give sound time to play, if at end of program:
+	
+	}
+	
+	public static void mopSound() {
+		// First way doesn't use files explicitly:
+		  try{
+	            AudioInputStream ais = AudioSystem.getAudioInputStream(new File("src/Music/mopCollect.wav"));
+	            Clip test = AudioSystem.getClip();  
+	            
+	            test.open(ais);
+	            test.start();
+	    		// Need to give sound time to start, then time finish playing, if at end of program:
+	        
+	        }catch(Exception ex){
+	            ex.printStackTrace();
+	        }
+	}
 
 }

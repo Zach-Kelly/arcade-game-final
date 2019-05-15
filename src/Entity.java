@@ -23,7 +23,7 @@ public abstract class Entity {
 	protected int height;
 	protected int width;
 	protected boolean onGround = false;
-	private boolean isDead = false;
+	protected boolean isDead = false;
 	protected boolean lastDirectionRight = true;
 
 	private double xVelocity = 0;
@@ -43,6 +43,8 @@ public abstract class Entity {
 	
 	protected boolean isEdible;
 	protected Sound soundPlayer;
+	
+	protected int pointValue;
 
 	public Entity(int posX, int posY, int width, int height, String spritePath) {
 

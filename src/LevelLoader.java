@@ -1,8 +1,10 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
@@ -23,6 +25,9 @@ public class LevelLoader {
 	private Color bgColor;
 	private GameKeyboardListener keyListener;
 	private Scanner scanner;
+	protected HashMap<String, Integer> keyStates = new HashMap<String, Integer>();
+	
+	private int score;
 
 	//
 	// initial level loading
@@ -33,6 +38,12 @@ public class LevelLoader {
 	 * 
 	 * @param path the path of the level file to be loaded
 	 */
+	
+	public LevelLoader() {
+		this.score = 0;
+		this.keyStates.put("U", 0);
+		this.keyStates.put("D", 0);
+	}
 	public void loadFile(String path) {
 
 		try {
@@ -55,12 +66,16 @@ public class LevelLoader {
 		this.entities = new ArrayList<Entity>();
 		this.projectiles = new ArrayList<Entity>();
 		this.fruit = new ArrayList<Entity>(); 
+		
+		this.keyStates.put("U", 0);
+		
 
 		Color[] obstacleColors = getObstacleColors();
 		createHero();
 		createMonsters();
 		createObstacles(obstacleColors);
 		this.scanner.close();
+		
 
 	}
 
@@ -226,8 +241,8 @@ public class LevelLoader {
 			collisionHelper(e);
 		}
 		
-		for (Entity f: this.fruit) {
-			collisionHelper(f);
+		for (int i =0; i<fruit.size(); i++) {
+			collisionHelper(this.fruit.get(i));
 		}
 
 	}
@@ -243,8 +258,9 @@ public class LevelLoader {
 				e.markForDeath();
 				this.fruit.add(new Fruit((int) e.posX, (int) e.posY));
 			}
-			else    if (e.isEdible) {
+			else if (e.isEdible) {
 				e.markForDeath();
+				score = score + e.pointValue;
 			}
 			else {
 			hero.markForDeath();
@@ -265,6 +281,9 @@ public class LevelLoader {
 	 * @param observer the observer needed to draw sprite images
 	 */
 	public void drawEntities(Graphics2D g2, JComponent observer) {
+		if (this.entities.size()==1 && this.fruit.size()==0) {
+			this.keyStates.put("U", 1);
+		}
 
 		for (Entity e : this.entities) {
 			e.drawOn(g2, observer);
@@ -290,6 +309,17 @@ public class LevelLoader {
 			o.drawOn(g2);
 		}
 
+	}
+	
+	public void drawScore(Graphics2D g2) {
+		Font scoreFont = new Font("Score", Font.BOLD, 24);
+		g2.setFont(scoreFont);
+		g2.drawString("SCORE: "+score, 25, 25);
+	}
+	
+	public int getKeyState() {
+		return this.keyStates.get("U");
+		
 	}
 
 }
