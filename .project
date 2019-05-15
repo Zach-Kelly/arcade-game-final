@@ -23,7 +23,7 @@
 		<link>
 			<name>src/MiscResources/LevelTransition.png</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Desktop/add/LevelTransition.png</locationURI>
+			<locationURI>PROJECT_LOC/src/MiscResources/LevelTransition.png</locationURI>
 		</link>
 		<link>
 			<name>src/MiscResources/TitleScreen.png</name>
@@ -31,34 +31,39 @@
 			<locationURI>PROJECT_LOC/src/MiscResources/TitleScreen.png</locationURI>
 		</link>
 		<link>
+			<name>src/MiscResources/deathScreen.png</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/MiscResources/deathScreen.png</locationURI>
+		</link>
+		<link>
 			<name>src/Music/backgroundmusic.mp3</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Desktop/add/backgroundmusic.mp3</locationURI>
+			<locationURI>PROJECT_LOC/src/Music/backgroundmusic.mp3</locationURI>
 		</link>
 		<link>
 			<name>src/Music/cowboys.wav</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Desktop/add/cowboys.wav</locationURI>
+			<locationURI>PROJECT_LOC/src/Music/cowboys.wav</locationURI>
 		</link>
 		<link>
 			<name>src/Music/hamburger.wav</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Desktop/add/hamburger.wav</locationURI>
+			<locationURI>PROJECT_LOC/src/Music/hamburger.wav</locationURI>
 		</link>
 		<link>
 			<name>src/Music/jokerma.wav</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Desktop/add/jokerma.wav</locationURI>
+			<locationURI>PROJECT_LOC/src/Music/jokerma.wav</locationURI>
 		</link>
 		<link>
 			<name>src/Music/mopCollect.wav</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Desktop/add/mopCollect.wav</locationURI>
+			<locationURI>PROJECT_LOC/src/Music/mopCollect.wav</locationURI>
 		</link>
 		<link>
 			<name>src/Music/music.wav</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Desktop/add/music.wav</locationURI>
+			<locationURI>PROJECT_LOC/src/Music/music.wav</locationURI>
 		</link>
 		<link>
 			<name>src/Sprites/Bubly.png</name>
@@ -83,22 +88,17 @@
 		<link>
 			<name>src/Sprites/bouncer.png</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Desktop/add/bouncer.png</locationURI>
+			<locationURI>PROJECT_LOC/src/Sprites/bouncer.png</locationURI>
 		</link>
 		<link>
 			<name>src/Sprites/burser.png</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Desktop/add/burser.png</locationURI>
-		</link>
-		<link>
-			<name>src/Sprites/deathScreen.png</name>
-			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Desktop/add/deathScreen.png</locationURI>
+			<locationURI>PROJECT_LOC/src/Sprites/burser.png</locationURI>
 		</link>
 		<link>
 			<name>src/Sprites/noob.png</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Desktop/add/noob.png</locationURI>
+			<locationURI>PROJECT_LOC/src/Sprites/noob.png</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>
