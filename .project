@@ -21,9 +21,44 @@
 			<locationURI>PROJECT_LOC/src/MiscResources/Bismarck.png</locationURI>
 		</link>
 		<link>
+			<name>src/MiscResources/LevelTransition.png</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Desktop/add/LevelTransition.png</locationURI>
+		</link>
+		<link>
 			<name>src/MiscResources/TitleScreen.png</name>
 			<type>1</type>
 			<locationURI>PROJECT_LOC/src/MiscResources/TitleScreen.png</locationURI>
+		</link>
+		<link>
+			<name>src/Music/backgroundmusic.mp3</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Desktop/add/backgroundmusic.mp3</locationURI>
+		</link>
+		<link>
+			<name>src/Music/cowboys.wav</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Desktop/add/cowboys.wav</locationURI>
+		</link>
+		<link>
+			<name>src/Music/hamburger.wav</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Desktop/add/hamburger.wav</locationURI>
+		</link>
+		<link>
+			<name>src/Music/jokerma.wav</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Desktop/add/jokerma.wav</locationURI>
+		</link>
+		<link>
+			<name>src/Music/mopCollect.wav</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Desktop/add/mopCollect.wav</locationURI>
+		</link>
+		<link>
+			<name>src/Music/music.wav</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Desktop/add/music.wav</locationURI>
 		</link>
 		<link>
 			<name>src/Sprites/Bubly.png</name>
@@ -44,6 +79,26 @@
 			<name>src/Sprites/Thanos.png</name>
 			<type>1</type>
 			<locationURI>PROJECT_LOC/src/Sprites/Thanos.png</locationURI>
+		</link>
+		<link>
+			<name>src/Sprites/bouncer.png</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Desktop/add/bouncer.png</locationURI>
+		</link>
+		<link>
+			<name>src/Sprites/burser.png</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Desktop/add/burser.png</locationURI>
+		</link>
+		<link>
+			<name>src/Sprites/deathScreen.png</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Desktop/add/deathScreen.png</locationURI>
+		</link>
+		<link>
+			<name>src/Sprites/noob.png</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Desktop/add/noob.png</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>
