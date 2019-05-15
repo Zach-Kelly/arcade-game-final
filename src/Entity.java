@@ -42,6 +42,7 @@ public abstract class Entity {
 	protected boolean isTrapped;
 	
 	protected boolean isEdible;
+	protected Sound soundPlayer;
 
 	public Entity(int posX, int posY, int width, int height, String spritePath) {
 
@@ -59,6 +60,7 @@ public abstract class Entity {
 		this.keyStates.put("shoot", 0);
 		
 		this.isTrapped= false;
+		this.soundPlayer = new Sound();
 
 	}
 

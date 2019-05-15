@@ -81,11 +81,13 @@ public class Shooter extends Enemy {
 			int yOffset = (int) (this.hero.posY - this.posY); 
 			int direction = 1;
 			if (System.currentTimeMillis() - timeOfLastShot > SHOOTING_DELAY) {
+				
 				if (xOffset > 0) {
 					direction = -1;
 				}
 				
 				if (Math.abs(yOffset)<=50) {
+					this.soundPlayer.burgerSound();
 					timeOfLastShot = System.currentTimeMillis();
 					this.projectiles.add(new Burger((int) this.posX, (int) this.posY, direction));
 				}	

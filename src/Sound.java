@@ -1,42 +1,60 @@
-import sun.audio.*;
-import javax.swing.*;
-import sun.audio.*;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.*;
+import javax.sound.sampled.*;
+import java.util.concurrent.TimeUnit;
 
 public class Sound {
 
-	public Sound() {
-		// TODO Auto-generated constructor stub
+// Shows two ways to play sounds successfully in Java program
+	
+	public void backgroundMusic() {
+		// First way doesn't use files explicitly:
+		  try{
+	            AudioInputStream ais = AudioSystem.getAudioInputStream(new File("src/Music/cowboys.wav"));
+	            Clip test = AudioSystem.getClip();  
+	            
+	            test.open(ais);
+	            test.loop(Clip.LOOP_CONTINUOUSLY);
+	    		// Need to give sound time to start, then time finish playing, if at end of program:
+	            while (!test.isRunning())
+	                Thread.sleep(1);
+	            while (test.isRunning())
+	                Thread.sleep(10);
+	            test.close();
+	        }catch(Exception ex){
+	            ex.printStackTrace();
+	        }
+
+		  // Second way does use files explicitly:  
+		
+		// Need to give sound time to play, if at end of program:
+		try {
+			TimeUnit.SECONDS.sleep(10);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
 	}
 	
-	public static void music() {
-		AudioPlayer MGP = AudioPlayer.player;
-		AudioData MD;
-		AudioStream BGM; 
-		ContinuousAudioDataStream loop = null;
+	public void burgerSound() {
+		// First way doesn't use files explicitly:
+		  try{
+	            AudioInputStream ais = AudioSystem.getAudioInputStream(new File("src/Music/hamburger.wav"));
+	            Clip test = AudioSystem.getClip();  
+	            
+	            test.open(ais);
+	            test.start();
+	    		// Need to give sound time to start, then time finish playing, if at end of program:
+	        
+	        }catch(Exception ex){
+	            ex.printStackTrace();
+	        }
+
+		  // Second way does use files explicitly:  
 		
-		try {
-			
-		File musicFile = new File("src/Music/backgroundmusic.mp3");
-		System.out.println("Found File");
-		
-		FileInputStream inputStream = new FileInputStream(musicFile);
-		System.out.println("Made input stream");
-		
-		BGM = new AudioStream(inputStream);
-		System.out.println("Made audio stream");
-		
-		MD = BGM.getData();
-		
-		System.out.println("got data");
-		loop = new ContinuousAudioDataStream(MD);
-		System.out.println("Made loop");
-		}
-		catch(IOException error){
-			System.out.print("File Not Found");
-		}
-		
-		MGP.start(loop);
+		// Need to give sound time to play, if at end of program:
+	
 	}
 
 }

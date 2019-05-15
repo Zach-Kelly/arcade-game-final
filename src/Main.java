@@ -34,7 +34,9 @@ public class Main {
 		component.handleLoadLevel(0);
 		Timer timer = new Timer(DELAY, new GameTimeListener(component));
 		timer.start();
-		//Sound.music();
+		Sound musicPlayer = new Sound();
+		musicPlayer.backgroundMusic();
+		
 
 	}
 
