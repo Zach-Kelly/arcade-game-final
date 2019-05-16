@@ -30,6 +30,12 @@ public class Hero extends Entity {
 	public Point2D.Double getPosition() {
 		return new Point2D.Double(this.posX, this.posY);
 	}
+	
+	@Override
+	public boolean isDead() {
+		// TODO Auto-generated method stub
+		return super.isDead();
+	}
 
 	@Override
 	public void updatePosition() {
@@ -50,7 +56,7 @@ public class Hero extends Entity {
 		}
 
 	}
-
+	
 	@Override
 	public void drawOn(Graphics2D g2, JComponent observer) {
 

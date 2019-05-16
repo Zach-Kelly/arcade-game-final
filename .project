@@ -21,6 +21,16 @@
 			<locationURI>PROJECT_LOC/src/MiscResources/Bismarck.png</locationURI>
 		</link>
 		<link>
+			<name>src/MiscResources/GameOver.png</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/MiscResources/GameOver.png</locationURI>
+		</link>
+		<link>
+			<name>src/MiscResources/Instructions.png</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/MiscResources/Instructions.png</locationURI>
+		</link>
+		<link>
 			<name>src/MiscResources/LevelTransition.png</name>
 			<type>1</type>
 			<locationURI>PROJECT_LOC/src/MiscResources/LevelTransition.png</locationURI>
@@ -64,6 +74,11 @@
 			<name>src/Music/music.wav</name>
 			<type>1</type>
 			<locationURI>PROJECT_LOC/src/Music/music.wav</locationURI>
+		</link>
+		<link>
+			<name>src/Music/stinky.wav</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/Music/stinky.wav</locationURI>
 		</link>
 		<link>
 			<name>src/Sprites/Bubly.png</name>

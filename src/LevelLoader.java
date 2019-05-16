@@ -28,7 +28,15 @@ public class LevelLoader {
 	protected HashMap<String, Integer> keyStates = new HashMap<String, Integer>();
 	
 	private int score;
-
+	private static final Color TEXT_COLOR = Color.MAGENTA;
+	
+	public boolean handleGetIsHeroDead() {
+		
+		Hero hero = (Hero) this.entities.get(HERO);
+		return hero.isDead();
+		
+	}
+	
 	//
 	// initial level loading
 	//
@@ -312,6 +320,7 @@ public class LevelLoader {
 	}
 	
 	public void drawScore(Graphics2D g2) {
+		g2.setColor(TEXT_COLOR);
 		Font scoreFont = new Font("Score", Font.BOLD, 24);
 		g2.setFont(scoreFont);
 		g2.drawString("SCORE: "+score, 25, 25);

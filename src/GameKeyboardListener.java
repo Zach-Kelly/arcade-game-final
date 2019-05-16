@@ -46,7 +46,12 @@ public class GameKeyboardListener implements KeyListener {
 					this.levelComponent.setTransitionTime();
 					Sound.jokermaSound();
 				} else {
-					//TODO: add instructions
+					this.levelComponent.isInstructions = !this.levelComponent.isInstructions;
+					if (this.levelComponent.isInstructions) {
+						this.levelComponent.selectorMovable = false;
+					} else {
+						this.levelComponent.selectorMovable = true;
+					}
 				}
 			}
 			if (arg0.getKeyCode() == KeyEvent.VK_UP || arg0.getKeyCode() == KeyEvent.VK_DOWN) {
