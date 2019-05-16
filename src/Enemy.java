@@ -67,9 +67,8 @@ public abstract class Enemy extends Entity {
 	public void bubbleMovement() {
 		checkBubbleTime();
 		handleKeyInteraction("up", 1);
-		if (this.dy > BUBBLE_VELOCITY) {
-			this.dy = BUBBLE_VELOCITY;
-		}
+		this.dy = BUBBLE_VELOCITY;
+		
 		this.posY = this.posY + this.dy;
 		if (this.posY < 0) {
 			this.posY = 0;
