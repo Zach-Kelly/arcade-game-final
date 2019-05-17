@@ -146,7 +146,7 @@ public class LevelLoader {
 				this.entities.add(new Walker(x, y, (Hero) this.entities.get(HERO), this.fruit));
 			}
 			if (subtype == ENEMY_BOSS) {
-				this.entities.add(new ColeBoss(x, y, this.projectiles));
+				this.entities.add(new ColeBoss(x, y, this.projectiles, this.fruit));
 			}
 
 			this.scanner.nextLine();

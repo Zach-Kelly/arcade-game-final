@@ -8,12 +8,11 @@ import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 
-//TODO: add point value
 public class ColeBoss extends Enemy {
 
-	private static final double STAGE_1_X_VELOCITY = 10;
-	private static final double STAGE_1_X_VELOCITY_MAX = 10;
-	private static final double STAGE_1_X_DRAG = 0.01;
+	private static final double STAGE_1_X_VELOCITY = 15;
+	private static final double STAGE_1_X_VELOCITY_MAX = 15;
+	private static final double STAGE_1_X_DRAG = 0.1;
 	private static final double STAGE_1_Y_VELOCITY = -6;
 	private static final double STAGE_1_Y_VELOCITY_MAX = 7;
 	private static final double STAGE_1_GRAVITY = 0.1;
@@ -21,7 +20,7 @@ public class ColeBoss extends Enemy {
 	private static final int STAGE_1_HEIGHT = 309;
 	private static final double STAGE_2_X_VELOCITY = 20;
 	private static final double STAGE_2_X_VELOCITY_MAX = 20;
-	private static final double STAGE_2_X_DRAG = 0.01;
+	private static final double STAGE_2_X_DRAG = 0.1;
 	private static final double STAGE_2_Y_VELOCITY = -10;
 	private static final double STAGE_2_Y_VELOCITY_MAX = 7;
 	private static final double STAGE_2_GRAVITY = 0.1;
@@ -31,16 +30,18 @@ public class ColeBoss extends Enemy {
 	private static final double STAGE_3_X_VELOCITY_MAX = 0;
 	private static final double STAGE_3_X_DRAG = 0;
 	private static final double STAGE_3_Y_VELOCITY = -30;
-	private static final double STAGE_3_Y_VELOCITY_MAX = 20;
-	private static final double STAGE_3_GRAVITY = 0.01;
+	private static final double STAGE_3_Y_VELOCITY_MAX = 30;
+	private static final double STAGE_3_GRAVITY = 0.2;
 	private static final int STAGE_3_WIDTH = 152;
 	private static final int STAGE_3_HEIGHT = 240;
 	private static final String SPRITE_PATH_1 = "src/Sprites/ColeStage1.png";
 	private static final String SPRITE_PATH_2 = "src/Sprites/ColeStage2.png";
 	private static final String SPRITE_PATH_3 = "src/Sprites/ColeStage3.png";
-	private static final int MAX_HEALTH = 5;
-	private static final int SHOT_DELAY = 500;
-	private static final Font WIN_FONT = new Font("", Font.BOLD, 100);
+	private static final int MAX_HEALTH = 1;
+	private static final int SHOT_DELAY = 250;
+	private static final Font WIN_FONT = new Font("", Font.BOLD, 80);
+	private static final int NUM_FRUIT_DROPS = 20;
+	private static final int FRUIT_DROP_DELAY = 500;
 	
 	private int health = MAX_HEALTH;
 	private int currentStage = 0;
@@ -48,11 +49,14 @@ public class ColeBoss extends Enemy {
 	private Image stage2;
 	private Image stage3;
 	private Image currentSprite;
-	ArrayList<Entity> projectiles;
+	private ArrayList<Entity> projectiles;
 	private Random random = new Random();
 	private long lastTimeShot = System.currentTimeMillis();
+	private ArrayList<Entity> fruit;
+	private int currentNumFruitDropped = 0;
+	long lastFruitDropped = System.currentTimeMillis();
 
-	public ColeBoss(int posX, int posY, ArrayList<Entity> projectiles) {
+	public ColeBoss(int posX, int posY, ArrayList<Entity> projectiles, ArrayList<Entity> fruit) {
 
 		super(posX, posY, STAGE_1_WIDTH, STAGE_1_HEIGHT, null, null, null);
 		addMovementValues(0, 0, 0, 0, STAGE_1_Y_VELOCITY_MAX, STAGE_1_GRAVITY);
@@ -64,6 +68,7 @@ public class ColeBoss extends Enemy {
 		this.stage3 = stage3.getImage().getScaledInstance(STAGE_3_WIDTH, STAGE_3_HEIGHT, Image.SCALE_AREA_AVERAGING);
 		this.currentSprite = this.stage1;
 		this.projectiles = projectiles;
+		this.fruit = fruit;
 		
 	}
 	
@@ -72,6 +77,11 @@ public class ColeBoss extends Enemy {
 		if (this.isTrapped) {
 			this.isTrapped = false;
 			this.health--;
+			if (this.currentStage == 3 && this.health <= 0) {
+				this.posX = 450;
+				this.posY = 500;
+				this.dy = 0;
+			}
 		}
 		if (isTrapped) {
 			this.bubbleMovement();
@@ -122,6 +132,18 @@ public class ColeBoss extends Enemy {
 			this.currentStage++;
 			Sound.coleDeathSound();
 			stop();
+		} else if (this.currentStage == 4) {
+			if (System.currentTimeMillis() > this.lastFruitDropped + FRUIT_DROP_DELAY
+					&& this.currentNumFruitDropped < NUM_FRUIT_DROPS) {
+				this.lastFruitDropped = System.currentTimeMillis();
+				int adjustedX = (int) this.posX + this.width / 2;
+				int adjustedY = (int) this.posY + this.height / 2;
+				this.fruit.add(new Fruit(adjustedX, adjustedY));
+				this.currentNumFruitDropped++;
+			}
+			if (this.currentNumFruitDropped == NUM_FRUIT_DROPS) {
+				this.posX = 2000;
+			}
 		}
 		
 	}
@@ -186,12 +208,11 @@ public class ColeBoss extends Enemy {
 	public void drawOn(Graphics2D g2, JComponent observer) {
 		
 		g2.drawImage(this.currentSprite, (int) this.posX, (int) this.posY, observer);
-		g2.draw(this.fullHitBox);
 		if (this.currentStage == 4) {
 			g2.setColor(Color.RED);
 			g2.setFont(WIN_FONT);
-			g2.drawString("CONGRATULATIONS!", 200, 400);
-			g2.drawString("    YOU WIN!", 200, 600);
+			g2.drawString("CONGRATULATIONS!", 80, 400);
+			g2.drawString("YOU WIN!", 300, 600);
 		}
 		
 	}
