@@ -14,7 +14,7 @@ import javax.swing.JFrame;
 @SuppressWarnings("serial")
 public class LevelComponent extends JComponent {
 
-	private static final int NUMBER_OF_LEVELS = 6;
+	private static final int NUMBER_OF_LEVELS = 7;
 
 	private ArrayList<String> levelList = new ArrayList<String>();
 	private int currentLevelIndex = 0;

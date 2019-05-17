@@ -18,7 +18,7 @@ public abstract class Entity {
 
 	protected double posX;
 	protected double posY;
-	private double dx = 0;
+	protected double dx = 0;
 	protected double dy = 0;
 	protected int height;
 	protected int width;
@@ -173,7 +173,6 @@ public abstract class Entity {
 
 	public void drawOn(Graphics2D g2, JComponent observer) {
 		g2.drawImage(sprite, (int) this.posX, (int) this.posY, observer);
-		g2.setColor(Color.ORANGE);
 	}
 
 	public void handleKeyInteraction(String key, int state) {

@@ -46,6 +46,26 @@
 			<locationURI>PROJECT_LOC/src/MiscResources/deathScreen.png</locationURI>
 		</link>
 		<link>
+			<name>src/Music/ColeDeath.wav</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/Music/ColeDeath.wav</locationURI>
+		</link>
+		<link>
+			<name>src/Music/Stage1.wav</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/Music/Stage1.wav</locationURI>
+		</link>
+		<link>
+			<name>src/Music/Stage2.wav</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/Music/Stage2.wav</locationURI>
+		</link>
+		<link>
+			<name>src/Music/Stage3.wav</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/Music/Stage3.wav</locationURI>
+		</link>
+		<link>
 			<name>src/Music/backgroundmusic.mp3</name>
 			<type>1</type>
 			<locationURI>PROJECT_LOC/src/Music/backgroundmusic.mp3</locationURI>
@@ -84,6 +104,21 @@
 			<name>src/Sprites/Bubly.png</name>
 			<type>1</type>
 			<locationURI>PROJECT_LOC/src/Sprites/Bubly.png</locationURI>
+		</link>
+		<link>
+			<name>src/Sprites/ColeStage1.png</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/Sprites/ColeStage1.png</locationURI>
+		</link>
+		<link>
+			<name>src/Sprites/ColeStage2.png</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/Sprites/ColeStage2.png</locationURI>
+		</link>
+		<link>
+			<name>src/Sprites/ColeStage3.png</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/Sprites/ColeStage3.png</locationURI>
 		</link>
 		<link>
 			<name>src/Sprites/Hero.png</name>

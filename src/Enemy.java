@@ -77,7 +77,7 @@ public abstract class Enemy extends Entity {
 	}
 	
 	public void checkBubbleTime() {
-		//Add method to make guy come out of buble
+		
 		long now = System.currentTimeMillis();
 		if (now-this.timeTrapped>=10000) {
 			this.isTrapped=false;

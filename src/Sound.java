@@ -70,6 +70,58 @@ public class Sound {
 
 	}
 	
+	public static void stage1Sound() {
+
+		try {
+			AudioInputStream ais = AudioSystem.getAudioInputStream(new File("src/Music/Stage1.wav"));
+			Clip test = AudioSystem.getClip();
+			test.open(ais);
+			test.start();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+	}
+	
+	public static void stage2Sound() {
+
+		try {
+			AudioInputStream ais = AudioSystem.getAudioInputStream(new File("src/Music/Stage2.wav"));
+			Clip test = AudioSystem.getClip();
+			test.open(ais);
+			test.start();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+	}
+	
+	public static void stage3Sound() {
+
+		try {
+			AudioInputStream ais = AudioSystem.getAudioInputStream(new File("src/Music/Stage3.wav"));
+			Clip test = AudioSystem.getClip();
+			test.open(ais);
+			test.start();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+	}
+	
+	public static void coleDeathSound() {
+
+		try {
+			AudioInputStream ais = AudioSystem.getAudioInputStream(new File("src/Music/ColeDeath.wav"));
+			Clip test = AudioSystem.getClip();
+			test.open(ais);
+			test.start();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+	}
+	
 	public static void stinkySound() {
 
 		try {
@@ -82,7 +134,7 @@ public class Sound {
 		}
 
 	}
-
+	
 	public static void mopSound() {
 		// First way doesn't use files explicitly:
 		try {

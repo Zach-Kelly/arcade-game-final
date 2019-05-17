@@ -15,6 +15,7 @@ public class LevelLoader {
 	private static final int ENEMY_RUNNER = 0;
 	private static final int ENEMY_SHOOTER = 1;
 	private static final int ENEMY_WALKER = 2;
+	private static final int ENEMY_BOSS = 4;
 	
 	private static final int HERO = 0;
 
@@ -143,6 +144,9 @@ public class LevelLoader {
 			}
 			if (subtype == ENEMY_WALKER) {
 				this.entities.add(new Walker(x, y, (Hero) this.entities.get(HERO), this.fruit));
+			}
+			if (subtype == ENEMY_BOSS) {
+				this.entities.add(new ColeBoss(x, y, this.projectiles));
 			}
 
 			this.scanner.nextLine();
