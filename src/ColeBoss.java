@@ -95,10 +95,7 @@ public class ColeBoss extends Enemy {
 	}
 	
 	private void checkStage() {
-		System.out.println();
-		System.out.print("stage: ");
-		System.out.print(this.currentStage);
-		System.out.println();
+		
 		if (this.currentStage == 0 && this.health < 0) {
 			this.currentStage++;
 			this.health = MAX_HEALTH;

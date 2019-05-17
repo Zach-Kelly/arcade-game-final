@@ -60,7 +60,8 @@ public class Shooter extends Enemy {
 			handleKeyInteraction("up", 0);
 		}
 	}
-
+	
+	//TODO: move check level boundaries
 	@Override
 	public void updatePosition() {
 		if (isTrapped) {
