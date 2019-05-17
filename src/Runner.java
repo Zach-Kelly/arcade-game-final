@@ -1,8 +1,6 @@
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
-import org.omg.CosNaming.IstringHelper;
-
 public class Runner extends Enemy {
 
 	private static final int RUNNER_WIDTH = 67;
@@ -69,12 +67,6 @@ public class Runner extends Enemy {
 			super.updatePosition();
 			movementControl();
 		}
-
-	}
-
-	@Override
-	public void shootProjectile() {
-		// TODO Auto-generated method stub
 
 	}
 

@@ -75,9 +75,6 @@ public abstract class Entity {
 
 	}
 
-	// TODO: make this an interface
-	public abstract void shootProjectile();
-
 	public void checkObstacleCollision(Obstacle o) {
 
 		this.updateHitBox();

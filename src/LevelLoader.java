@@ -219,8 +219,9 @@ public class LevelLoader {
 		updateActionsHelper(this.entities.subList(1, this.entities.size()));
 		updateActionsHelper(this.projectiles);
 		updateActionsHelper(this.fruit);
-		this.entities.get(HERO).updatePosition();
-		this.entities.get(HERO).shootProjectile();
+		Hero hero = (Hero) this.entities.get(HERO);
+		hero.updatePosition();
+		hero.shootProjectile();
 
 	}
 
@@ -230,7 +231,6 @@ public class LevelLoader {
 		for (int i = list.size() - 1; i > -1; i--) {
 			e = list.get(i);
 			e.updatePosition();
-			e.shootProjectile();
 			if (e.isDead()) {
 				list.remove(e);
 			}

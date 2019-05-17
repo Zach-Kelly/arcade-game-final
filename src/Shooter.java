@@ -12,7 +12,7 @@ public class Shooter extends Enemy {
 	private static final double Y_VELOCITY = -6;
 	private static final double Y_VELOCITY_MAX = 7;
 	private static final double GRAVITY = 0.1;
-	private static final int SHOOTING_DELAY = 500;
+	private static final int SHOOTING_DELAY = 750;
 
 	private long timeOfLastShot;
 	private ArrayList<Entity> projectiles;
@@ -28,7 +28,8 @@ public class Shooter extends Enemy {
 
 	@Override
 	public void movementControl() {
-
+		
+		shootProjectile();
 		Point2D.Double heroPosition = this.hero.getPosition();
 		double xOffset = heroPosition.x - this.posX;
 		double yOffset = heroPosition.y - this.posY;
@@ -75,7 +76,6 @@ public class Shooter extends Enemy {
 
 	}
 
-	@Override
 	public void shootProjectile() {
 		if(!isTrapped) {
 			int xOffset = (int) (this.hero.posX - this.posX);

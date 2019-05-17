@@ -90,8 +90,13 @@ public class Hero extends Entity {
 		}
 
 	}
+	
+//	@Override
+//	public void markForDeath() {
+//		// TODO Auto-generated method stub
+//		//super.markForDeath();
+//	}
 
-	@Override
 	public void shootProjectile() {
 
 		if (!this.isDead()) {

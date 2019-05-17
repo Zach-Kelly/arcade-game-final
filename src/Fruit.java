@@ -20,12 +20,7 @@ public class Fruit extends Entity {
 		this.pointValue = 100;
 		// TODO Auto-generated constructor stub
 	}
-
-	@Override
-	public void shootProjectile() {
-		// TODO Auto-generated method stub
-
-	}
+	
 	@Override
 	public void updatePosition(){
 		this.checkLevelBoundaries();

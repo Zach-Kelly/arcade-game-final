@@ -195,11 +195,6 @@ public class ColeBoss extends Enemy {
 		}
 
 	}
-
-	@Override
-	public void shootProjectile() {
-
-	}
 	
 	@Override
 	public void drawOn(Graphics2D g2, JComponent observer) {

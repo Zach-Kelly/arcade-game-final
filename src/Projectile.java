@@ -4,7 +4,7 @@ import java.awt.geom.Rectangle2D;
 //TODO: draw behind the hero/monsters
 public abstract class Projectile extends Entity {
 
-	private static final double X_VELOCITY = 2;
+	private static final double X_VELOCITY = 2.5;
 	private static final double X_VELOCITY_MAX = 10;
 	private static final double X_DRAG = 0.5;
 	private static final double Y_VELOCITY = 0;

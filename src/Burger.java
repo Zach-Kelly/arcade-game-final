@@ -10,10 +10,4 @@ public class Burger extends Projectile {
 		super(startPosX, startPosY, WIDTH, HEIGHT, SPRITE_PATH, HIT_BOX_SCALE, initialDirection);
 	}
 
-	@Override
-	public void shootProjectile() {
-		// TODO Auto-generated method stub
-
-	}
-
 }

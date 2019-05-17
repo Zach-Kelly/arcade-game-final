@@ -9,11 +9,5 @@ public class Bubly extends Projectile {
 	public Bubly(int startPosX, int startPosY, int initialDirection) {
 		super(startPosX, startPosY, WIDTH, HEIGHT, SPRITE_PATH, HIT_BOX_SCALE, initialDirection);
 	}
-
-	@Override
-	public void shootProjectile() {
-		// TODO Auto-generated method stub
-
-	}
-
+	
 }
