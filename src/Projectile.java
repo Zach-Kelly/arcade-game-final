@@ -14,12 +14,12 @@ public abstract class Projectile extends Entity {
 	/**
 	 * Constructs a new Projectile
 	 * 
-	 * @param startPosX
-	 * @param startPosY
-	 * @param width
-	 * @param height
-	 * @param spritePath
-	 * @param initialDirection
+	 * @param startPosX        the starting x coordinate
+	 * @param startPosY        the statring y coordinate
+	 * @param width            the hitbox width
+	 * @param height           the hitbox height
+	 * @param spritePath       the sprite file path
+	 * @param initialDirection the initial direction (left or right)
 	 */
 	public Projectile(int startPosX, int startPosY, int width, int height, String spritePath, int initialDirection) {
 
@@ -27,15 +27,17 @@ public abstract class Projectile extends Entity {
 		addMovementValues(X_VELOCITY, X_VELOCITY_MAX, X_DRAG, Y_VELOCITY, Y_VELOCITY_MAX, GRAVITY);
 		this.initialDirection = initialDirection;
 		this.setEdible(false);
-		
+
 	}
 
 	@Override
 	public void updatePosition() {
 
 		super.updatePosition();
-		boolean offScreenX = Math.abs(this.getPosX() - STAGE_WIDTH / 2 - this.getWidth() / 2) > STAGE_WIDTH / 2 + this.getWidth();
-		boolean offScreenY = Math.abs(this.getPosY() - STAGE_WIDTH / 2 - this.getHeight() / 2) > STAGE_WIDTH / 2 + this.getHeight();
+		boolean offScreenX = Math.abs(this.getPosX() - STAGE_WIDTH / 2 - this.getWidth() / 2) > STAGE_WIDTH / 2
+				+ this.getWidth();
+		boolean offScreenY = Math.abs(this.getPosY() - STAGE_WIDTH / 2 - this.getHeight() / 2) > STAGE_WIDTH / 2
+				+ this.getHeight();
 		if (offScreenX || offScreenY) {
 			this.markForDeath();
 		}

@@ -20,6 +20,12 @@ public class Hero extends Entity {
 	private ArrayList<Projectile> heroProjectiles = new ArrayList<Projectile>();
 	private boolean shootReleased = true;
 
+	/**
+	 * Constructs a new Hero
+	 * 
+	 * @param startPosX the starting x coordinate
+	 * @param startPosY the starting y coordinate
+	 */
 	public Hero(int startPosX, int startPosY) {
 
 		super(startPosX, startPosY, HERO_WIDTH, HERO_HEIGHT, SPRITE_PATH);
@@ -27,6 +33,9 @@ public class Hero extends Entity {
 
 	}
 
+	/**
+	 * @return the Hero position
+	 */
 	public Point2D.Double getPosition() {
 		return new Point2D.Double(this.getPosX(), this.getPosY());
 	}
@@ -71,6 +80,11 @@ public class Hero extends Entity {
 
 	}
 
+	/**
+	 * Checks if the Hero projectiles are colliding with the given Entity
+	 * 
+	 * @param e the entity to be checked for collision
+	 */
 	public void checkHeroProjectileCollision(Enemy e) {
 
 		for (Projectile p : this.heroProjectiles) {
@@ -83,6 +97,9 @@ public class Hero extends Entity {
 
 	}
 
+	/**
+	 * Shoots a projectile
+	 */
 	public void shootProjectile() {
 
 		if (!this.isDead()) {

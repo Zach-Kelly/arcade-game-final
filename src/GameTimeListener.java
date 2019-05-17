@@ -5,6 +5,11 @@ public class GameTimeListener implements ActionListener {
 
 	private LevelComponent levelComponent;
 
+	/**
+	 * Constructs a new GameTimeListener
+	 * 
+	 * @param levelComponent
+	 */
 	public GameTimeListener(LevelComponent levelComponent) {
 		this.levelComponent = levelComponent;
 	}

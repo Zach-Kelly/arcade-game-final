@@ -227,6 +227,9 @@ public class LevelLoader {
 
 	}
 
+	/**
+	 * @param list the list of entities to check collision for
+	 */
 	private void updateActionsHelper(List<Entity> list) {
 
 		Entity e;
@@ -267,6 +270,11 @@ public class LevelLoader {
 
 	}
 
+	/**
+	 * Common collision code
+	 * 
+	 * @param e the Entity to check collision for
+	 */
 	private void collisionHelper(Entity e) {
 
 		Hero hero = (Hero) this.entities.get(HERO);
@@ -321,6 +329,11 @@ public class LevelLoader {
 
 	}
 
+	/**
+	 * Draws the score display
+	 * 
+	 * @param g2 the Graphics2D object
+	 */
 	public void drawScore(Graphics2D g2) {
 
 		g2.setColor(TEXT_COLOR);
@@ -329,6 +342,9 @@ public class LevelLoader {
 
 	}
 
+	/**
+	 * @return the state of the u key
+	 */
 	public int getUKeyState() {
 		return this.keyStates.get("U");
 	}

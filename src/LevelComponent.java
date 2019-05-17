@@ -43,6 +43,11 @@ public class LevelComponent extends JComponent {
 	private int currentLevelIndex = 0;
 	private Polygon selector = new Polygon();
 
+	/**
+	 * Constructs a new LevelComponent
+	 * 
+	 * @param frame the frame the game is contained within
+	 */
 	public LevelComponent(JFrame frame) {
 
 		this.frame = frame;
@@ -79,6 +84,9 @@ public class LevelComponent extends JComponent {
 		return isInstructions;
 	}
 
+	/**
+	 * Loads all needed images
+	 */
 	private void addImages() {
 
 		ImageIcon pause = new ImageIcon("src/MiscResources/Bismarck.png");
@@ -100,6 +108,11 @@ public class LevelComponent extends JComponent {
 		return this.levelLoader.getKeyListener();
 	}
 
+	/**
+	 * Loads a new level
+	 * 
+	 * @param indexOffset the offset of the desired level from the current level
+	 */
 	public void handleLoadLevel(int indexOffset) {
 
 		if (!this.isTitleScreen) {
@@ -120,6 +133,9 @@ public class LevelComponent extends JComponent {
 
 	}
 
+	/**
+	 * Updates all movement, collision, painting, etc.
+	 */
 	public void updateScreen() {
 
 		if (levelLoader.getUKeyState() == 1) {
@@ -179,6 +195,9 @@ public class LevelComponent extends JComponent {
 
 	}
 
+	/**
+	 * Checks for a transition between levels
+	 */
 	private void checkTransition() {
 
 		if (this.isTransitioning || this.isHeroDead) {
