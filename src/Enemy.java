@@ -20,20 +20,33 @@ public abstract class Enemy extends Entity {
 	private Hero hero;
 	private boolean isTrapped = false;
 
+	/**
+	 * Constructs a new Enemy
+	 * 
+	 * @param posX       the starting x coordinate
+	 * @param posY       the starting y coordinate
+	 * @param width      the hitbox width
+	 * @param height     the hitbox height
+	 * @param spritePath the sprite file path
+	 * @param hero       the hero
+	 */
 	public Enemy(int posX, int posY, int width, int height, String spritePath, Hero hero) {
 
 		super(posX, posY, width, height, spritePath);
 		this.hero = hero;
-		double dWidth = (double) this.width;
-		double dHeight = (double) this.height;
+		double dWidth = (double) this.getWidth();
+		double dHeight = (double) this.getHeight();
 		this.bubbleDiameter = Math.pow(dWidth * dWidth + dHeight * dHeight, 0.5);
 		this.bubbleXOffset = (bubbleDiameter - width) / 2;
 		this.bubbleYOffset = (bubbleDiameter - height) / 2;
 		bubble = new Ellipse2D.Double(bubbleDiameter, bubbleDiameter, posX, posY);
-		this.isEdible = false;
+		this.setEdible(false);
 
 	}
 
+	/**
+	 * The enemy AI, controls how each enemy moves
+	 */
 	public abstract void movementControl();
 
 	@Override
@@ -41,8 +54,8 @@ public abstract class Enemy extends Entity {
 
 		super.drawOn(g2, observer);
 		if (this.isTrapped) {
-			this.bubble.setFrame(this.posX - this.bubbleXOffset, this.posY - this.bubbleYOffset, this.bubbleDiameter,
-					this.bubbleDiameter);
+			this.bubble.setFrame(this.getPosX() - this.bubbleXOffset, this.getPosY() - this.bubbleYOffset,
+					this.bubbleDiameter, this.bubbleDiameter);
 			g2.setStroke(BUBBLE_STROKE);
 			g2.setColor(BUBBLE_COLOR);
 			g2.draw(this.bubble);
@@ -51,10 +64,16 @@ public abstract class Enemy extends Entity {
 
 	}
 
+	/**
+	 * @return if the enemy is currently trapped or not
+	 */
 	public boolean isTrapped() {
 		return isTrapped;
 	}
 
+	/**
+	 * @param isTrapped the current trapped status of the enemy
+	 */
 	public void setTrapped(boolean isTrapped) {
 		this.isTrapped = isTrapped;
 	}
@@ -63,35 +82,42 @@ public abstract class Enemy extends Entity {
 	protected void updateHitBox() {
 
 		if (isTrapped) {
-			this.obstacleHitBox.setRect(this.posX - bubbleXOffset, this.posY - bubbleYOffset, this.bubbleDiameter,
-					this.bubbleDiameter);
-			this.fullHitBox.setFrame(this.posX - bubbleXOffset, this.posY - bubbleYOffset, this.bubbleDiameter,
-					this.bubbleDiameter);
+			this.getObstacleHitBox().setRect(this.getPosX() - bubbleXOffset, this.getPosY() - bubbleYOffset,
+					this.bubbleDiameter, this.bubbleDiameter);
+			this.getFullHitBox().setFrame(this.getPosX() - bubbleXOffset, this.getPosY() - bubbleYOffset,
+					this.bubbleDiameter, this.bubbleDiameter);
 		} else {
-			int hitBoxY = (int) (this.posY + this.height - HITBOX_HEIGHT);
-			this.obstacleHitBox.setRect(this.posX, hitBoxY, this.obstacleHitBox.getWidth(), HITBOX_HEIGHT);
-			this.fullHitBox.setFrame(this.posX, this.posY, this.width, this.height);
+			int hitBoxY = (int) (this.getPosY() + this.getHeight() - HITBOX_HEIGHT);
+			this.getObstacleHitBox().setRect(this.getPosX(), hitBoxY, this.getObstacleHitBox().getWidth(),
+					HITBOX_HEIGHT);
+			this.getFullHitBox().setFrame(this.getPosX(), this.getPosY(), this.getWidth(), this.getHeight());
 		}
 
 	}
 
+	/**
+	 * The movement pattern the enemy should follow if currently trapped
+	 */
 	private void bubbleMovement() {
 
 		checkBubbleTime();
 		handleKeyInteraction("up", 1);
-		this.dy = BUBBLE_VELOCITY;
-		this.posY = this.posY + this.dy;
-		if (this.posY < 0) {
-			this.posY = 0;
-			this.dy = 0;
+		this.setDy(BUBBLE_VELOCITY);
+		this.setPosY(this.getPosY() + this.getDy());
+		if (this.getPosY() < 0) {
+			this.setPosY(0);
+			this.setDy(0);
 		}
 
 	}
 
+	/**
+	 * Checks if enought time has passed for the enemy to break free of the bubble
+	 */
 	private void checkBubbleTime() {
 
 		long now = System.currentTimeMillis();
-		if (now - this.timeTrapped >= MAX_TIME_TRAPPED) {
+		if (now - this.getTimeTrapped() >= MAX_TIME_TRAPPED) {
 			this.isTrapped = false;
 		}
 
@@ -109,6 +135,9 @@ public abstract class Enemy extends Entity {
 
 	}
 
+	/**
+	 * @return the hero
+	 */
 	public Hero getHero() {
 		return hero;
 	}

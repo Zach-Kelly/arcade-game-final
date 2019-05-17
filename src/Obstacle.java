@@ -12,6 +12,17 @@ public class Obstacle extends Rectangle2D.Double {
 	private Color outline;
 	private static final float OUTLINE_THICKNESS = 1;
 
+	/**
+	 * Constructs a new Obstacle
+	 * 
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param height
+	 * @param type
+	 * @param fill
+	 * @param outline
+	 */
 	public Obstacle(double x, double y, double width, double height, int type, Color fill, Color outline) {
 
 		super(x, y, width, height);
@@ -21,6 +32,11 @@ public class Obstacle extends Rectangle2D.Double {
 
 	}
 
+	/**
+	 * Draws the Obstacle
+	 * 
+	 * @param g2 the Graphics2D object
+	 */
 	public void drawOn(Graphics2D g2) {
 
 		Stroke origStroke = g2.getStroke();
@@ -33,6 +49,9 @@ public class Obstacle extends Rectangle2D.Double {
 
 	}
 
+	/**
+	 * @return the Obstacle type
+	 */
 	public int getSubtype() {
 		return type;
 	}

@@ -11,12 +11,22 @@ public abstract class Projectile extends Entity {
 
 	private int initialDirection;
 
+	/**
+	 * Constructs a new Projectile
+	 * 
+	 * @param startPosX
+	 * @param startPosY
+	 * @param width
+	 * @param height
+	 * @param spritePath
+	 * @param initialDirection
+	 */
 	public Projectile(int startPosX, int startPosY, int width, int height, String spritePath, int initialDirection) {
 
 		super(startPosX, startPosY, width, height, spritePath);
 		addMovementValues(X_VELOCITY, X_VELOCITY_MAX, X_DRAG, Y_VELOCITY, Y_VELOCITY_MAX, GRAVITY);
 		this.initialDirection = initialDirection;
-		this.isEdible = false;
+		this.setEdible(false);
 		
 	}
 
@@ -24,8 +34,8 @@ public abstract class Projectile extends Entity {
 	public void updatePosition() {
 
 		super.updatePosition();
-		boolean offScreenX = Math.abs(this.posX - STAGE_WIDTH / 2 - this.width / 2) > STAGE_WIDTH / 2 + this.width;
-		boolean offScreenY = Math.abs(this.posY - STAGE_WIDTH / 2 - this.height / 2) > STAGE_WIDTH / 2 + this.height;
+		boolean offScreenX = Math.abs(this.getPosX() - STAGE_WIDTH / 2 - this.getWidth() / 2) > STAGE_WIDTH / 2 + this.getWidth();
+		boolean offScreenY = Math.abs(this.getPosY() - STAGE_WIDTH / 2 - this.getHeight() / 2) > STAGE_WIDTH / 2 + this.getHeight();
 		if (offScreenX || offScreenY) {
 			this.markForDeath();
 		}
@@ -41,7 +51,7 @@ public abstract class Projectile extends Entity {
 	public void checkObstacleCollision(Obstacle o) {
 
 		this.updateHitBox();
-		if (o.intersects(this.obstacleHitBox)) {
+		if (o.intersects(this.getObstacleHitBox())) {
 			this.markForDeath();
 		}
 

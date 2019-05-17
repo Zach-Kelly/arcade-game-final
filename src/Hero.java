@@ -28,7 +28,7 @@ public class Hero extends Entity {
 	}
 
 	public Point2D.Double getPosition() {
-		return new Point2D.Double(this.posX, this.posY);
+		return new Point2D.Double(this.getPosX(), this.getPosY());
 	}
 
 	@Override
@@ -77,7 +77,7 @@ public class Hero extends Entity {
 			if (p.getFullHitBox().intersects(e.getFullHitBox())) {
 				p.markForDeath();
 				e.setTrapped(true);
-				e.timeTrapped = System.currentTimeMillis();
+				e.setTimeTrapped(System.currentTimeMillis());
 			}
 		}
 
@@ -86,17 +86,17 @@ public class Hero extends Entity {
 	public void shootProjectile() {
 
 		if (!this.isDead()) {
-			if (this.keyStates.get("shoot") == 0) {
+			if (this.getKeyState("shoot") == 0) {
 				this.shootReleased = true;
 			}
 			if (this.heroProjectiles.size() < MAX_NUM_PROJECTILES && this.shootReleased) {
 				int direction = 1;
-				if (this.keyStates.get("shoot") == 1) {
-					if (this.lastDirectionRight) {
+				if (getKeyState("shoot") == 1) {
+					if (this.isLastDirectionRight()) {
 						direction = -1;
 					}
 					this.shootReleased = false;
-					this.heroProjectiles.add(new Bubly((int) this.posX, (int) this.posY, direction));
+					this.heroProjectiles.add(new Bubly((int) this.getPosX(), (int) this.getPosY(), direction));
 				}
 			}
 		}

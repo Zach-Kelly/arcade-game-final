@@ -12,12 +12,18 @@ public class Fruit extends Entity {
 	private static final double Y_VELOCITY_MAX = 10;
 	private static final double GRAVITY = 1;
 
+	/**
+	 * Constructs a new Fruit
+	 * 
+	 * @param posX the starting x coordinate
+	 * @param posY the starting y coordinate
+	 */
 	public Fruit(int posX, int posY) {
 
 		super(posX, posY, WIDTH, HEIGHT, SPRITE_PATH);
 		addMovementValues(X_VELOCITY, X_VELOCITY_MAX, X_DRAG, Y_VELOCITY, Y_VELOCITY_MAX, GRAVITY);
-		this.isEdible = true;
-		this.pointValue = 100;
+		this.setEdible(true);
+		this.setPointValue(100);
 
 	}
 
@@ -25,7 +31,7 @@ public class Fruit extends Entity {
 	public void markForDeath() {
 
 		Sound.mopSound();
-		this.isDead = true;
+		this.setDead(true);
 
 	}
 

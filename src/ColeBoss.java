@@ -60,6 +60,14 @@ public class ColeBoss extends Enemy {
 	private int currentNumFruitDropped = 0;
 	long lastFruitDropped = System.currentTimeMillis();
 
+	/**
+	 * Constructs a new ColeBoss
+	 * 
+	 * @param posX        the starting x coordinate
+	 * @param posY        the starting y coordinate
+	 * @param projectiles the list of all enemy projectiles
+	 * @param fruit       the list of all fruit
+	 */
 	public ColeBoss(int posX, int posY, ArrayList<Entity> projectiles, ArrayList<Entity> fruit) {
 
 		super(posX, posY, STAGE_1_WIDTH, STAGE_1_HEIGHT, null, null);
@@ -82,10 +90,10 @@ public class ColeBoss extends Enemy {
 			setTrapped(false);
 			this.health--;
 			if (this.currentStage == 4) {
-				this.posX = MIDSCREEN_X;
-				this.posY = MIDSCREEN_Y;
-				this.dy = 0;
-				this.dx = 0;
+				this.setPosX(MIDSCREEN_X);
+				this.setPosY(MIDSCREEN_Y);
+				this.setDy(0);
+				this.setDx(0);
 			}
 		}
 		super.updatePosition();
@@ -93,53 +101,92 @@ public class ColeBoss extends Enemy {
 
 	}
 
+	/**
+	 * Controls transitions between stages of the boss
+	 */
 	private void checkStage() {
 
 		if (this.currentStage == 0 && this.health < 0) {
-			this.currentStage++;
-			this.health = MAX_HEALTH;
-			addMovementValues(STAGE_1_X_VELOCITY, STAGE_1_X_VELOCITY_MAX, STAGE_1_X_DRAG, STAGE_1_Y_VELOCITY,
-					STAGE_1_Y_VELOCITY_MAX, STAGE_1_GRAVITY);
-			Sound.stage1Sound();
-			this.keyStates.put("left", 1);
+			stage1Transition();
 		} else if (this.currentStage == 1 && this.health < 0) {
-			this.width = STAGE_2_WIDTH;
-			this.height = STAGE_2_HEIGHT;
-			this.currentStage++;
-			this.health = MAX_HEALTH;
-			addMovementValues(STAGE_2_X_VELOCITY, STAGE_2_X_VELOCITY_MAX, STAGE_2_X_DRAG, STAGE_2_Y_VELOCITY,
-					STAGE_2_Y_VELOCITY_MAX, STAGE_2_GRAVITY);
-			Sound.stage2Sound();
-			stop();
-			this.keyStates.put("up", 1);
-			this.currentSprite = this.stage2;
+			stage2Transition();
 		} else if (this.currentStage == 2 && this.health < 0) {
-			this.width = STAGE_3_WIDTH;
-			this.height = STAGE_3_HEIGHT;
-			this.currentStage++;
-			this.health = MAX_HEALTH;
-			addMovementValues(STAGE_3_X_VELOCITY, STAGE_3_X_VELOCITY_MAX, STAGE_3_X_DRAG, STAGE_3_Y_VELOCITY,
-					STAGE_3_Y_VELOCITY_MAX, STAGE_3_GRAVITY);
-			Sound.stage3Sound();
-			stop();
-			this.keyStates.put("up", 1);
-			this.currentSprite = this.stage3;
+			stage3Transition();
 		} else if (this.currentStage == 3 && this.health < 0) {
 			this.currentStage++;
 			Sound.coleDeathSound();
 			stop();
 		} else if (this.currentStage == 4) {
-			if (System.currentTimeMillis() > this.lastFruitDropped + FRUIT_DROP_DELAY
-					&& this.currentNumFruitDropped < NUM_FRUIT_DROPS) {
-				this.lastFruitDropped = System.currentTimeMillis();
-				int adjustedX = (int) this.posX + this.width / 2;
-				int adjustedY = (int) this.posY + this.height / 2;
-				this.fruit.add(new Fruit(adjustedX, adjustedY));
-				this.currentNumFruitDropped++;
-			}
-			if (this.currentNumFruitDropped == NUM_FRUIT_DROPS) {
-				this.posX = OFFSCREEN_X;
-			}
+			stage4();
+		}
+
+	}
+
+	/**
+	 * Actions for going to stage 1
+	 */
+	private void stage1Transition() {
+
+		this.currentStage++;
+		this.health = MAX_HEALTH;
+		addMovementValues(STAGE_1_X_VELOCITY, STAGE_1_X_VELOCITY_MAX, STAGE_1_X_DRAG, STAGE_1_Y_VELOCITY,
+				STAGE_1_Y_VELOCITY_MAX, STAGE_1_GRAVITY);
+		Sound.stage1Sound();
+		handleKeyInteraction("left", 1);
+
+	}
+
+	/**
+	 * Actions for going to stage 2
+	 */
+	private void stage2Transition() {
+
+		this.setWidth(STAGE_2_WIDTH);
+		this.setHeight(STAGE_2_HEIGHT);
+		this.currentStage++;
+		this.health = MAX_HEALTH;
+		addMovementValues(STAGE_2_X_VELOCITY, STAGE_2_X_VELOCITY_MAX, STAGE_2_X_DRAG, STAGE_2_Y_VELOCITY,
+				STAGE_2_Y_VELOCITY_MAX, STAGE_2_GRAVITY);
+		Sound.stage2Sound();
+		stop();
+		handleKeyInteraction("up", 1);
+		this.currentSprite = this.stage2;
+
+	}
+
+	/**
+	 * Actions for going to stage 3
+	 */
+	private void stage3Transition() {
+
+		this.setWidth(STAGE_3_WIDTH);
+		this.setHeight(STAGE_3_HEIGHT);
+		this.currentStage++;
+		this.health = MAX_HEALTH;
+		addMovementValues(STAGE_3_X_VELOCITY, STAGE_3_X_VELOCITY_MAX, STAGE_3_X_DRAG, STAGE_3_Y_VELOCITY,
+				STAGE_3_Y_VELOCITY_MAX, STAGE_3_GRAVITY);
+		Sound.stage3Sound();
+		stop();
+		handleKeyInteraction("up", 1);
+		this.currentSprite = this.stage3;
+
+	}
+
+	/**
+	 * Actions for during stage 4
+	 */
+	private void stage4() {
+
+		if (System.currentTimeMillis() > this.lastFruitDropped + FRUIT_DROP_DELAY
+				&& this.currentNumFruitDropped < NUM_FRUIT_DROPS) {
+			this.lastFruitDropped = System.currentTimeMillis();
+			int adjustedX = (int) this.getPosX() + this.getWidth() / 2;
+			int adjustedY = (int) this.getPosY() + this.getHeight() / 2;
+			this.fruit.add(new Fruit(adjustedX, adjustedY));
+			this.currentNumFruitDropped++;
+		}
+		if (this.currentNumFruitDropped == NUM_FRUIT_DROPS) {
+			this.setPosX(OFFSCREEN_X);
 		}
 
 	}
@@ -147,46 +194,49 @@ public class ColeBoss extends Enemy {
 	@Override
 	protected void updateHitBox() {
 
-		int hitBoxY = (int) (this.posY + this.height - HITBOX_HEIGHT);
-		this.obstacleHitBox.setRect(this.posX, hitBoxY, this.width, HITBOX_HEIGHT);
-		this.fullHitBox.setFrame(this.posX, this.posY, this.width, this.height);
+		int hitBoxY = (int) (this.getPosY() + this.getHeight() - HITBOX_HEIGHT);
+		this.getObstacleHitBox().setRect(this.getPosX(), hitBoxY, this.getWidth(), HITBOX_HEIGHT);
+		this.getFullHitBox().setFrame(this.getPosX(), this.getPosY(), this.getWidth(), this.getHeight());
 
 	}
 
+	/**
+	 * Stops the boss from actively moving
+	 */
 	public void stop() {
-		this.keyStates.put("up", 0);
-		this.keyStates.put("left", 0);
-		this.keyStates.put("right", 0);
+		handleKeyInteraction("up", 0);
+		handleKeyInteraction("left", 0);
+		handleKeyInteraction("right", 0);
 	}
 
 	@Override
 	public void movementControl() {
 
 		if (this.currentStage == 1) {
-			if (Math.abs(this.dx) < 1) {
-				if (this.lastDirectionRight) {
-					this.keyStates.put("left", 1);
-					this.keyStates.put("right", 0);
+			if (Math.abs(this.getDx()) < 1) {
+				if (this.isLastDirectionRight()) {
+					handleKeyInteraction("left", 1);
+					handleKeyInteraction("right", 0);
 				} else {
-					this.keyStates.put("left", 0);
-					this.keyStates.put("right", 1);
+					handleKeyInteraction("left", 0);
+					handleKeyInteraction("right", 1);
 				}
 			} else {
 				stop();
 			}
 		} else if (this.currentStage == 2) {
-			if (Math.abs(this.dx) < 1) {
-				this.dx = this.random.nextDouble() * STAGE_2_X_VELOCITY;
-				if (this.lastDirectionRight) {
-					this.dx *= -1;
+			if (Math.abs(this.getDx()) < 1) {
+				this.setDx(this.random.nextDouble() * STAGE_2_X_VELOCITY);
+				if (this.isLastDirectionRight()) {
+					this.setDx(this.getDx() * -1);
 				}
 			} else {
-				this.keyStates.put("left", 0);
-				this.keyStates.put("right", 0);
+				handleKeyInteraction("left", 0);
+				handleKeyInteraction("right", 0);
 			}
 		} else if (this.currentStage == 3) {
-			int adjustedX = (int) this.posX + this.width / 2;
-			int adjustedY = (int) this.posY + this.height / 2;
+			int adjustedX = (int) this.getPosX() + this.getWidth() / 2;
+			int adjustedY = (int) this.getPosY() + this.getHeight() / 2;
 			if (System.currentTimeMillis() >= this.lastTimeShot + SHOT_DELAY) {
 				this.projectiles.add(new Burger(adjustedX, adjustedY, this.random.nextInt(2)));
 				this.lastTimeShot = System.currentTimeMillis();
@@ -198,7 +248,7 @@ public class ColeBoss extends Enemy {
 	@Override
 	public void drawOn(Graphics2D g2, JComponent observer) {
 
-		g2.drawImage(this.currentSprite, (int) this.posX, (int) this.posY, observer);
+		g2.drawImage(this.currentSprite, (int) this.getPosX(), (int) this.getPosY(), observer);
 		if (this.currentStage == 4) {
 			g2.setColor(Color.RED);
 			g2.setFont(WIN_FONT);

@@ -37,12 +37,6 @@ public class LevelLoader {
 	// initial level loading
 	//
 
-	/**
-	 * Starts the process of loading and constructing a level.
-	 * 
-	 * @param path the path of the level file to be loaded
-	 */
-
 	public LevelLoader() {
 
 		this.keyStates.put("U", 0);
@@ -50,6 +44,11 @@ public class LevelLoader {
 
 	}
 
+	/**
+	 * Starts the process of loading and constructing a level.
+	 * 
+	 * @param path the path of the level file to be loaded
+	 */
 	public void loadFile(String path) {
 
 		try {
@@ -258,7 +257,7 @@ public class LevelLoader {
 			Enemy m = (Enemy) e;
 			if (m.isTrapped() && hero.getFullHitBox().intersects(e.getFullHitBox())) {
 				m.markForDeath();
-				this.fruit.add(new Fruit((int) e.posX, (int) e.posY));
+				this.fruit.add(new Fruit((int) e.getPosX(), (int) e.getPosY()));
 			}
 			hero.checkHeroProjectileCollision(m);
 		}
@@ -275,9 +274,9 @@ public class LevelLoader {
 			e.checkObstacleCollision(o);
 		}
 		if (hero.getFullHitBox().intersects(e.getFullHitBox())) {
-			if (e.isEdible || ((Enemy) e).isTrapped()) {
+			if (e.isEdible() || ((Enemy) e).isTrapped()) {
 				e.markForDeath();
-				score = score + e.pointValue;
+				score = score + e.getPointValue();
 			} else {
 				hero.markForDeath();
 			}

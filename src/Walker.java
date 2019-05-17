@@ -16,6 +16,13 @@ public class Walker extends Enemy {
 
 	private int walkDirection;
 
+	/**
+	 * Constructs a new Walker
+	 * 
+	 * @param posX the starting x coordinate
+	 * @param posY the starting y coordinate
+	 * @param hero the hero
+	 */
 	public Walker(int posX, int posY, Hero hero) {
 
 		super(posX, posY, WALKER_WIDTH, WALKER_HEIGHT, SPRITE_PATH, hero);
@@ -42,22 +49,22 @@ public class Walker extends Enemy {
 	public void checkObstacleCollision(Obstacle o) {
 
 		this.updateHitBox();
-		if (o.intersects(this.obstacleHitBox)) {
+		if (o.intersects(this.getObstacleHitBox())) {
 			if (o.getSubtype() == PLATFORM) {
 
-				if (this.dy >= 0) {
-					this.posY = o.getMinY() - this.height;
-					this.dy = 0;
-					this.onGround = true;
+				if (this.getDy() >= 0) {
+					this.setPosY(o.getMinY() - this.getHeight());
+					this.setDy(0);
+					this.setOnGround(true);
 				}
 
 			}
 			if (o.getSubtype() == WALL) {
-				if (this.obstacleHitBox.getCenterX() - o.getCenterX() < 0) {
-					this.posX = o.getMinX() - this.width;
+				if (this.getObstacleHitBox().getCenterX() - o.getCenterX() < 0) {
+					this.setPosX(o.getMinX() - this.getWidth());
 					this.walkDirection = -1;
 				} else {
-					this.posX = o.getMaxX();
+					this.setPosX(o.getMaxX());
 					this.walkDirection = 1;
 				}
 			}

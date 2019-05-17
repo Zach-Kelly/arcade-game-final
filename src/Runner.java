@@ -14,6 +14,13 @@ public class Runner extends Enemy {
 	private static final int HERO_X_OFFSET = 20;
 	private static final int HERO_Y_OFFSET = 0;
 
+	/**
+	 * Constructs a new runner
+	 * 
+	 * @param posX the starting x coordinate
+	 * @param posY the starting y coordinate
+	 * @param hero the hero
+	 */
 	public Runner(int posX, int posY, Hero hero) {
 
 		super(posX, posY, RUNNER_WIDTH, RUNNER_HEIGHT, SPRITE_PATH, hero);
@@ -25,13 +32,19 @@ public class Runner extends Enemy {
 	public void movementControl() {
 
 		Point2D.Double heroPosition = this.getHero().getPosition();
-		double xOffset = heroPosition.x - this.posX;
-		double yOffset = heroPosition.y - this.posY;
+		double xOffset = heroPosition.x - this.getPosX();
+		double yOffset = heroPosition.y - this.getPosY();
 		horizontalMovement(xOffset, yOffset);
 		verticalMovement(yOffset);
 
 	}
 
+	/**
+	 * Controls horizontal movement
+	 * 
+	 * @param xOffset the distance from the hero needed to change behavior
+	 * @param yOffset the distance from the hero needed to change behavior
+	 */
 	private void horizontalMovement(double xOffset, double yOffset) {
 
 		if (Math.abs(xOffset) < HERO_X_OFFSET) {
@@ -47,6 +60,11 @@ public class Runner extends Enemy {
 
 	}
 
+	/**
+	 * Controls vertical movement
+	 * 
+	 * @param yOffset the distance from the hero needed to change behavior
+	 */
 	private void verticalMovement(double yOffset) {
 
 		if (yOffset < HERO_Y_OFFSET) {

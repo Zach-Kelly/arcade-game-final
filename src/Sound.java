@@ -4,6 +4,9 @@ import java.util.concurrent.TimeUnit;
 
 public class Sound {
 
+	/**
+	 * Plays the background music
+	 */
 	public void backgroundMusic() {
 
 		try {
@@ -27,22 +30,37 @@ public class Sound {
 
 	}
 
+	/**
+	 * Plays the burger sound
+	 */
 	public static void burgerSound() {
 		basicSound("src/Music/hamburger.wav");
 	}
 
+	/**
+	 * Plays the jokerma sound
+	 */
 	public static void jokermaSound() {
 		basicSound("src/Music/jokerma.wav");
 	}
 
+	/**
+	 * Plays the Boss stage 1 sound
+	 */
 	public static void stage1Sound() {
 		basicSound("src/Music/Stage1.wav");
 	}
 
+	/**
+	 * Plays the boss stage 2 sound
+	 */
 	public static void stage2Sound() {
 		basicSound("src/Music/Stage2.wav");
 	}
 
+	/**
+	 * Plays the boss stage 3 sound
+	 */
 	public static void stage3Sound() {
 		basicSound("src/Music/Stage3.wav");
 	}
@@ -51,14 +69,25 @@ public class Sound {
 		basicSound("src/Music/ColeDeath.wav");
 	}
 
+	/**
+	 * Plays the death sound
+	 */
 	public static void stinkySound() {
 		basicSound("src/Music/stinky.wav");
 	}
 
+	/**
+	 * Plays the fruit pick up sound
+	 */
 	public static void mopSound() {
 		basicSound("src/Music/mopCollect.wav");
 	}
 
+	/**
+	 * Plays the given sound file
+	 * 
+	 * @param soundPath the file path of the sound file
+	 */
 	private static void basicSound(String soundPath) {
 
 		try {

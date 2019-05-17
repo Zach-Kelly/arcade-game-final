@@ -12,6 +12,11 @@ public class GameKeyboardListener implements KeyListener {
 	private Polygon selector;
 	private int selectorPos = -1;
 
+	/**
+	 * Constructs a new GameKeyBoardListener
+	 * 
+	 * @param selector the selector arrow on the title screen
+	 */
 	public GameKeyboardListener(Polygon selector) {
 
 		this.selector = selector;
@@ -26,10 +31,20 @@ public class GameKeyboardListener implements KeyListener {
 
 	}
 
+	/**
+	 * Sets the hero
+	 * 
+	 * @param hero the hero
+	 */
 	public void addHero(Hero hero) {
 		this.hero = hero;
 	}
 
+	/**
+	 * Sets the levelComponent
+	 * 
+	 * @param levelComponent the LevelComponent
+	 */
 	public void addLevelComponent(LevelComponent levelComponent) {
 		this.levelComponent = levelComponent;
 	}
@@ -51,6 +66,11 @@ public class GameKeyboardListener implements KeyListener {
 
 	}
 
+	/**
+	 * Handles keyboard input for the hero
+	 * 
+	 * @param arg0 the key pressed
+	 */
 	private void heroMovement(KeyEvent arg0) {
 
 		if (arg0.getKeyCode() == KeyEvent.VK_LEFT) {
@@ -71,6 +91,11 @@ public class GameKeyboardListener implements KeyListener {
 
 	}
 
+	/**
+	 * Handles keyboard input for the title screen
+	 * 
+	 * @param arg0 the key pressed
+	 */
 	private void titleScreenMovement(KeyEvent arg0) {
 
 		if (arg0.getKeyCode() == KeyEvent.VK_SPACE) {
@@ -96,6 +121,9 @@ public class GameKeyboardListener implements KeyListener {
 
 	}
 
+	/**
+	 * Moves the selector on the title screen
+	 */
 	private void moveSelector() {
 
 		this.selector.translate(0, this.selectorPos * SELECTOR_Y_OFFSET);

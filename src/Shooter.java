@@ -19,6 +19,14 @@ public class Shooter extends Enemy {
 	private long timeOfLastShot = System.currentTimeMillis();
 	private ArrayList<Entity> projectiles;
 
+	/**
+	 * Costructs a new shooter
+	 * 
+	 * @param posX        the starting x coordinate
+	 * @param posY        the starting y coordinate
+	 * @param hero        the hero
+	 * @param projectiles the list of all enemy projectiles
+	 */
 	public Shooter(int posX, int posY, Hero hero, ArrayList<Entity> projectiles) {
 
 		super(posX, posY, SHOOTER_WIDTH, SHOOTER_HEIGHT, SPRITE_PATH, hero);
@@ -32,13 +40,18 @@ public class Shooter extends Enemy {
 
 		shootProjectile();
 		Point2D.Double heroPosition = this.getHero().getPosition();
-		double xOffset = heroPosition.x - this.posX;
-		double yOffset = heroPosition.y - this.posY;
+		double xOffset = heroPosition.x - this.getPosX();
+		double yOffset = heroPosition.y - this.getPosY();
 		horizontalMovement(xOffset);
 		verticalMovement(yOffset);
 
 	}
 
+	/**
+	 * Controls horizontal movement
+	 * 
+	 * @param xOffset the distance from the hero needed to change behavior
+	 */
 	private void horizontalMovement(double xOffset) {
 
 		if (Math.abs(xOffset) < HERO_X_OFFSET) {
@@ -54,6 +67,11 @@ public class Shooter extends Enemy {
 
 	}
 
+	/**
+	 * Controls vertical movement
+	 * 
+	 * @param yOffset the distance from the hero needed to change behavior
+	 */
 	private void verticalMovement(double yOffset) {
 
 		if (yOffset < 0) {
@@ -64,11 +82,14 @@ public class Shooter extends Enemy {
 
 	}
 
+	/**
+	 * Shoots a projectile
+	 */
 	public void shootProjectile() {
 
 		if (!isTrapped()) {
-			int xOffset = (int) (this.getHero().posX - this.posX);
-			int yOffset = (int) (this.getHero().posY - this.posY);
+			int xOffset = (int) (this.getHero().getPosX() - this.getPosX());
+			int yOffset = (int) (this.getHero().getPosY() - this.getPosY());
 			int direction = 1;
 			if (System.currentTimeMillis() - timeOfLastShot > SHOOTING_DELAY) {
 				if (xOffset > 0) {
@@ -77,7 +98,7 @@ public class Shooter extends Enemy {
 				if (Math.abs(yOffset) <= HERO_Y_OFFSET) {
 					Sound.burgerSound();
 					timeOfLastShot = System.currentTimeMillis();
-					this.projectiles.add(new Burger((int) this.posX, (int) this.posY, direction));
+					this.projectiles.add(new Burger((int) this.getPosX(), (int) this.getPosY(), direction));
 				}
 			}
 		}
