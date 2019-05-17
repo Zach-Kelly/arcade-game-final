@@ -1,5 +1,4 @@
 import java.awt.geom.Point2D;
-import java.util.ArrayList;
 
 public class Runner extends Enemy {
 
@@ -12,10 +11,12 @@ public class Runner extends Enemy {
 	private static final double Y_VELOCITY = -6;
 	private static final double Y_VELOCITY_MAX = 7;
 	private static final double GRAVITY = 0.1;
+	private static final int HERO_X_OFFSET = 20;
+	private static final int HERO_Y_OFFSET = 0;
 
-	public Runner(int posX, int posY, Hero hero, ArrayList<Entity> fruit) {
+	public Runner(int posX, int posY, Hero hero) {
 
-		super(posX, posY, RUNNER_WIDTH, RUNNER_HEIGHT, SPRITE_PATH, hero, fruit);
+		super(posX, posY, RUNNER_WIDTH, RUNNER_HEIGHT, SPRITE_PATH, hero);
 		addMovementValues(X_VELOCITY, X_VELOCITY_MAX, X_DRAG, Y_VELOCITY, Y_VELOCITY_MAX, GRAVITY);
 
 	}
@@ -23,10 +24,9 @@ public class Runner extends Enemy {
 	@Override
 	public void movementControl() {
 
-		Point2D.Double heroPosition = this.hero.getPosition();
+		Point2D.Double heroPosition = this.getHero().getPosition();
 		double xOffset = heroPosition.x - this.posX;
 		double yOffset = heroPosition.y - this.posY;
-
 		horizontalMovement(xOffset, yOffset);
 		verticalMovement(yOffset);
 
@@ -34,7 +34,7 @@ public class Runner extends Enemy {
 
 	private void horizontalMovement(double xOffset, double yOffset) {
 
-		if (Math.abs(xOffset) < 20) {
+		if (Math.abs(xOffset) < HERO_X_OFFSET) {
 			handleKeyInteraction("left", 0);
 			handleKeyInteraction("right", 0);
 		} else if (xOffset > 0) {
@@ -49,23 +49,10 @@ public class Runner extends Enemy {
 
 	private void verticalMovement(double yOffset) {
 
-		if (yOffset < 0) {
+		if (yOffset < HERO_Y_OFFSET) {
 			handleKeyInteraction("up", 1);
 		} else {
 			handleKeyInteraction("up", 0);
-		}
-
-	}
-
-	@Override
-	public void updatePosition() {
-		if (isTrapped) {
-			this.bubbleMovement();
-		}
-		else {
-			this.checkLevelBoundaries();
-			super.updatePosition();
-			movementControl();
 		}
 
 	}

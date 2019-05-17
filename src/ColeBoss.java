@@ -42,7 +42,11 @@ public class ColeBoss extends Enemy {
 	private static final Font WIN_FONT = new Font("", Font.BOLD, 80);
 	private static final int NUM_FRUIT_DROPS = 20;
 	private static final int FRUIT_DROP_DELAY = 500;
-	
+	private static final int HITBOX_HEIGHT = 1;
+	private static final int OFFSCREEN_X = 2000;
+	private static final int MIDSCREEN_X = 450;
+	private static final int MIDSCREEN_Y = 500;
+
 	private int health = MAX_HEALTH;
 	private int currentStage = 0;
 	private Image stage1;
@@ -58,7 +62,7 @@ public class ColeBoss extends Enemy {
 
 	public ColeBoss(int posX, int posY, ArrayList<Entity> projectiles, ArrayList<Entity> fruit) {
 
-		super(posX, posY, STAGE_1_WIDTH, STAGE_1_HEIGHT, null, null, null);
+		super(posX, posY, STAGE_1_WIDTH, STAGE_1_HEIGHT, null, null);
 		addMovementValues(0, 0, 0, 0, STAGE_1_Y_VELOCITY_MAX, STAGE_1_GRAVITY);
 		ImageIcon stage1 = new ImageIcon(SPRITE_PATH_1);
 		this.stage1 = stage1.getImage().getScaledInstance(STAGE_1_WIDTH, STAGE_1_HEIGHT, Image.SCALE_AREA_AVERAGING);
@@ -69,33 +73,28 @@ public class ColeBoss extends Enemy {
 		this.currentSprite = this.stage1;
 		this.projectiles = projectiles;
 		this.fruit = fruit;
-		
-	}
-	
-	@Override
-	public void updatePosition() {
-		if (this.isTrapped) {
-			this.isTrapped = false;
-			this.health--;
-			if (this.currentStage == 3 && this.health <= 0) {
-				this.posX = 450;
-				this.posY = 500;
-				this.dy = 0;
-			}
-		}
-		if (isTrapped) {
-			this.bubbleMovement();
-		} else {
-			this.checkLevelBoundaries();
-			super.updatePosition();
-			movementControl();
-		}
-		checkStage();		
 
 	}
-	
+
+	@Override
+	public void updatePosition() {
+		if (isTrapped()) {
+			setTrapped(false);
+			this.health--;
+			if (this.currentStage == 4) {
+				this.posX = MIDSCREEN_X;
+				this.posY = MIDSCREEN_Y;
+				this.dy = 0;
+				this.dx = 0;
+			}
+		}
+		super.updatePosition();
+		checkStage();
+
+	}
+
 	private void checkStage() {
-		
+
 		if (this.currentStage == 0 && this.health < 0) {
 			this.currentStage++;
 			this.health = MAX_HEALTH;
@@ -139,21 +138,21 @@ public class ColeBoss extends Enemy {
 				this.currentNumFruitDropped++;
 			}
 			if (this.currentNumFruitDropped == NUM_FRUIT_DROPS) {
-				this.posX = 2000;
+				this.posX = OFFSCREEN_X;
 			}
 		}
-		
+
 	}
-	
+
 	@Override
 	protected void updateHitBox() {
-		
+
 		int hitBoxY = (int) (this.posY + this.height - HITBOX_HEIGHT);
 		this.obstacleHitBox.setRect(this.posX, hitBoxY, this.width, HITBOX_HEIGHT);
 		this.fullHitBox.setFrame(this.posX, this.posY, this.width, this.height);
-		
+
 	}
-	
+
 	public void stop() {
 		this.keyStates.put("up", 0);
 		this.keyStates.put("left", 0);
@@ -162,7 +161,7 @@ public class ColeBoss extends Enemy {
 
 	@Override
 	public void movementControl() {
-		
+
 		if (this.currentStage == 1) {
 			if (Math.abs(this.dx) < 1) {
 				if (this.lastDirectionRight) {
@@ -195,20 +194,22 @@ public class ColeBoss extends Enemy {
 		}
 
 	}
-	
+
 	@Override
 	public void drawOn(Graphics2D g2, JComponent observer) {
-		
+
 		g2.drawImage(this.currentSprite, (int) this.posX, (int) this.posY, observer);
 		if (this.currentStage == 4) {
 			g2.setColor(Color.RED);
 			g2.setFont(WIN_FONT);
-			g2.drawString("CONGRATULATIONS!", 80, 400);
-			g2.drawString("YOU WIN!", 300, 600);
+			int winTextX1 = 80;
+			int winTextY1 = 400;
+			int winTextX2 = 300;
+			int winTextY2 = 600;
+			g2.drawString("CONGRATULATIONS!", winTextX1, winTextY1);
+			g2.drawString("YOU WIN!", winTextX2, winTextY2);
 		}
-		
+
 	}
-	
-	
 
 }

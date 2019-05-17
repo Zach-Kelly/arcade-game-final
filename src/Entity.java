@@ -1,4 +1,3 @@
-import java.awt.BasicStroke;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.Rectangle2D;
@@ -9,11 +8,18 @@ import javax.swing.JComponent;
 
 public abstract class Entity {
 
-	protected static final int PLATFORM = 0;
-	protected static final int WALL = 1;
-	protected static final int HITBOX_HEIGHT = 1;
-	protected static final BasicStroke STANDARD_STROKE = new BasicStroke();
+	private static final int PLATFORM = 0;
+	private static final int WALL = 1;
+	private static final int HITBOX_HEIGHT = 1;
+	private static final int SCREEN_SIDE_LENGTH = 1000;
 
+	private Image sprite;
+	private double xVelocity = 0;
+	private double xVelocityMax = 0;
+	private double xDrag = 0;
+	private double yVelocity = 0;
+	private double yVelocityMax = 0;
+	private double gravity = 0;
 	protected double posX;
 	protected double posY;
 	protected double dx = 0;
@@ -23,25 +29,11 @@ public abstract class Entity {
 	protected boolean onGround = false;
 	protected boolean isDead = false;
 	protected boolean lastDirectionRight = true;
-
-	private double xVelocity = 0;
-	private double xVelocityMax = 0;
-	private double xDrag = 0;
-	private double yVelocity = 0;
-	private double yVelocityMax = 0;
-	private double gravity = 0;
-
 	protected HashMap<String, Integer> keyStates = new HashMap<String, Integer>();
 	protected Rectangle2D.Double obstacleHitBox;
 	protected Rectangle2D.Double fullHitBox;
-	private Image sprite;
-	
 	protected long timeTrapped;
-	protected boolean isTrapped;
-	
 	protected boolean isEdible;
-	protected Sound soundPlayer;
-	
 	protected int pointValue;
 
 	public Entity(int posX, int posY, int width, int height, String spritePath) {
@@ -58,9 +50,6 @@ public abstract class Entity {
 		this.keyStates.put("left", 0);
 		this.keyStates.put("right", 0);
 		this.keyStates.put("shoot", 0);
-		
-		this.isTrapped= false;
-		this.soundPlayer = new Sound();
 
 	}
 
@@ -80,14 +69,11 @@ public abstract class Entity {
 		this.updateHitBox();
 		if (o.intersects(this.obstacleHitBox)) {
 			if (o.getSubtype() == PLATFORM) {
-				
-					if (this.dy >= 0) {
-						this.posY = o.getMinY() - this.height;
-						this.dy = 0;
-						this.onGround = true;
-					}
-				
-			
+				if (this.dy >= 0) {
+					this.posY = o.getMinY() - this.height;
+					this.dy = 0;
+					this.onGround = true;
+				}
 			}
 			if (o.getSubtype() == WALL) {
 				if (this.obstacleHitBox.getCenterX() - o.getCenterX() < 0) {
@@ -105,10 +91,11 @@ public abstract class Entity {
 
 		updateHorizontalPosition();
 		updateVerticalPosition();
+		checkLevelBoundaries();
 
 	}
 
-	protected void updateVerticalPosition() {
+	private void updateVerticalPosition() {
 
 		if (this.onGround) {
 			this.dy += this.keyStates.get("up") * this.yVelocity;
@@ -122,7 +109,7 @@ public abstract class Entity {
 
 	}
 
-	protected void updateHorizontalPosition() {
+	private void updateHorizontalPosition() {
 
 		this.dx += this.xVelocity * (this.keyStates.get("right") - this.keyStates.get("left"));
 		if (this.dx > 0) {
@@ -144,14 +131,11 @@ public abstract class Entity {
 	}
 
 	protected void updateHitBox() {
-		if (isTrapped) {
-			this.obstacleHitBox.setRect(this.posX, this.posY, this.width, this.height);
-			this.fullHitBox.setFrame(this.posX, this.posY, this.width, this.height);
-		} else {
-			int hitBoxY = (int) (this.posY + this.height - HITBOX_HEIGHT);
-			this.obstacleHitBox.setRect(this.posX, hitBoxY, this.obstacleHitBox.getWidth(), HITBOX_HEIGHT);
-			this.fullHitBox.setFrame(this.posX, this.posY, this.width, this.height);
-		}
+
+		int hitBoxY = (int) (this.posY + this.height - HITBOX_HEIGHT);
+		this.obstacleHitBox.setRect(this.posX, hitBoxY, this.obstacleHitBox.getWidth(), HITBOX_HEIGHT);
+		this.fullHitBox.setFrame(this.posX, this.posY, this.width, this.height);
+
 	}
 
 	public Rectangle2D.Double getFullHitBox() {
@@ -173,21 +157,23 @@ public abstract class Entity {
 	public void handleKeyInteraction(String key, int state) {
 		this.keyStates.put(key, state);
 	}
-	
+
 	public void checkLevelBoundaries() {
-		if (this.posX>1000) {
-			this.posX = 1-this.width;
+
+		if (this.posX > SCREEN_SIDE_LENGTH) {
+			this.posX = 1 - this.width;
 		}
-		if (this.posX<1-this.width) {
-			this.posX=999;
+		if (this.posX < 1 - this.width) {
+			this.posX = SCREEN_SIDE_LENGTH - 1;
 		}
-		
-		if (this.posY<1-this.height) {
-			this.posY=999;
+
+		if (this.posY < 1 - this.height) {
+			this.posY = SCREEN_SIDE_LENGTH - 1;
 		}
-		if (this.posY>1000) {
-			this.posY=1-this.height;
+		if (this.posY > SCREEN_SIDE_LENGTH) {
+			this.posY = 1 - this.height;
 		}
+
 	}
 
 }

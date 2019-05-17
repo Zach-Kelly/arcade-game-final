@@ -1,8 +1,8 @@
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
-//TODO: make a shooter abstract class for hero and this
 public class Shooter extends Enemy {
+
 	public static final int SHOOTER_WIDTH = 100;
 	public static final int SHOOTER_HEIGHT = 100;
 	private static final String SPRITE_PATH = "src/Sprites/FortniteBurger.png";
@@ -13,24 +13,25 @@ public class Shooter extends Enemy {
 	private static final double Y_VELOCITY_MAX = 7;
 	private static final double GRAVITY = 0.1;
 	private static final int SHOOTING_DELAY = 750;
+	private static final int HERO_X_OFFSET = 400;
+	private static final int HERO_Y_OFFSET = 50;
 
-	private long timeOfLastShot;
+	private long timeOfLastShot = System.currentTimeMillis();
 	private ArrayList<Entity> projectiles;
 
-	public Shooter(int posX, int posY, Hero hero, ArrayList<Entity> projectiles, ArrayList<Entity> fruit) {
+	public Shooter(int posX, int posY, Hero hero, ArrayList<Entity> projectiles) {
 
-		super(posX, posY, SHOOTER_WIDTH, SHOOTER_HEIGHT, SPRITE_PATH, hero, fruit);
+		super(posX, posY, SHOOTER_WIDTH, SHOOTER_HEIGHT, SPRITE_PATH, hero);
 		addMovementValues(X_VELOCITY, X_VELOCITY_MAX, X_DRAG, Y_VELOCITY, Y_VELOCITY_MAX, GRAVITY);
-		this.timeOfLastShot = 0;
 		this.projectiles = projectiles;
 
 	}
 
 	@Override
 	public void movementControl() {
-		
+
 		shootProjectile();
-		Point2D.Double heroPosition = this.hero.getPosition();
+		Point2D.Double heroPosition = this.getHero().getPosition();
 		double xOffset = heroPosition.x - this.posX;
 		double yOffset = heroPosition.y - this.posY;
 		horizontalMovement(xOffset);
@@ -40,7 +41,7 @@ public class Shooter extends Enemy {
 
 	private void horizontalMovement(double xOffset) {
 
-		if (Math.abs(xOffset) < 400) {
+		if (Math.abs(xOffset) < HERO_X_OFFSET) {
 			handleKeyInteraction("left", 0);
 			handleKeyInteraction("right", 0);
 		} else if (xOffset > 0) {
@@ -54,44 +55,30 @@ public class Shooter extends Enemy {
 	}
 
 	private void verticalMovement(double yOffset) {
-		
+
 		if (yOffset < 0) {
 			handleKeyInteraction("up", 1);
 		} else {
 			handleKeyInteraction("up", 0);
 		}
-	}
-	
-	//TODO: move check level boundaries
-	@Override
-	public void updatePosition() {
-		if (isTrapped) {
-			this.bubbleMovement();
-		}else {
-			this.checkLevelBoundaries();
-			super.updatePosition();
-			movementControl();
-		}
-		
 
 	}
 
 	public void shootProjectile() {
-		if(!isTrapped) {
-			int xOffset = (int) (this.hero.posX - this.posX);
-			int yOffset = (int) (this.hero.posY - this.posY); 
+
+		if (!isTrapped()) {
+			int xOffset = (int) (this.getHero().posX - this.posX);
+			int yOffset = (int) (this.getHero().posY - this.posY);
 			int direction = 1;
 			if (System.currentTimeMillis() - timeOfLastShot > SHOOTING_DELAY) {
-				
 				if (xOffset > 0) {
 					direction = -1;
 				}
-				
-				if (Math.abs(yOffset)<=50) {
-					this.soundPlayer.burgerSound();
+				if (Math.abs(yOffset) <= HERO_Y_OFFSET) {
+					Sound.burgerSound();
 					timeOfLastShot = System.currentTimeMillis();
 					this.projectiles.add(new Burger((int) this.posX, (int) this.posY, direction));
-				}	
+				}
 			}
 		}
 

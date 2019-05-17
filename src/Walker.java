@@ -1,6 +1,6 @@
-import java.util.ArrayList;
 
 public class Walker extends Enemy {
+
 	private static final int WALKER_WIDTH = 67;
 	private static final int WALKER_HEIGHT = 113;
 	private static final String SPRITE_PATH = "src/Sprites/noob.png";
@@ -10,14 +10,17 @@ public class Walker extends Enemy {
 	private static final double Y_VELOCITY = 0;
 	private static final double Y_VELOCITY_MAX = 7;
 	private static final double GRAVITY = 0.1;
+	private static final int INITIAL_DIRECTION = 1;
+	private static final int PLATFORM = 0;
+	private static final int WALL = 1;
 
 	private int walkDirection;
 
-	public Walker(int posX, int posY, Hero hero, ArrayList<Entity> fruit) {
+	public Walker(int posX, int posY, Hero hero) {
 
-		super(posX, posY, WALKER_WIDTH, WALKER_HEIGHT, SPRITE_PATH, hero, fruit);
+		super(posX, posY, WALKER_WIDTH, WALKER_HEIGHT, SPRITE_PATH, hero);
 		addMovementValues(X_VELOCITY, X_VELOCITY_MAX, X_DRAG, Y_VELOCITY, Y_VELOCITY_MAX, GRAVITY);
-		this.walkDirection = 1;
+		this.walkDirection = INITIAL_DIRECTION;
 
 	}
 
@@ -33,17 +36,6 @@ public class Walker extends Enemy {
 			handleKeyInteraction("right", 0);
 		}
 
-	}
-
-	@Override
-	public void updatePosition() {
-		if (isTrapped) {
-			this.bubbleMovement();
-		} else {
-			this.checkLevelBoundaries();
-			super.updatePosition();
-			movementControl();
-		}
 	}
 
 	@Override

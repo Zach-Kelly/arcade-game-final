@@ -4,9 +4,9 @@ import java.awt.Graphics2D;
 import java.awt.Stroke;
 import java.awt.geom.Rectangle2D;
 
-@SuppressWarnings("serial")
 public class Obstacle extends Rectangle2D.Double {
 
+	private static final long serialVersionUID = 1L;
 	private int type;
 	private Color fill;
 	private Color outline;

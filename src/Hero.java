@@ -30,17 +30,9 @@ public class Hero extends Entity {
 	public Point2D.Double getPosition() {
 		return new Point2D.Double(this.posX, this.posY);
 	}
-	
-	@Override
-	public boolean isDead() {
-		// TODO Auto-generated method stub
-		return super.isDead();
-	}
 
 	@Override
 	public void updatePosition() {
-		
-		this.checkLevelBoundaries();
 
 		if (!this.isDead()) {
 			super.updatePosition();
@@ -56,7 +48,7 @@ public class Hero extends Entity {
 		}
 
 	}
-	
+
 	@Override
 	public void drawOn(Graphics2D g2, JComponent observer) {
 
@@ -79,23 +71,17 @@ public class Hero extends Entity {
 
 	}
 
-	public void checkHeroProjectileCollision(Entity e) {
+	public void checkHeroProjectileCollision(Enemy e) {
 
 		for (Projectile p : this.heroProjectiles) {
 			if (p.getFullHitBox().intersects(e.getFullHitBox())) {
 				p.markForDeath();
-				e.isTrapped=true;
+				e.setTrapped(true);
 				e.timeTrapped = System.currentTimeMillis();
 			}
 		}
 
 	}
-	
-//	@Override
-//	public void markForDeath() {
-//		// TODO Auto-generated method stub
-//		//super.markForDeath();
-//	}
 
 	public void shootProjectile() {
 
