@@ -33,7 +33,6 @@ public class LevelComponent extends JComponent {
 	public int selectorPos = -1;
 	public boolean selectorMovable = true;
 	private Font levelFont;
-	private Sound soundEffect;
 	private Image deathScreen;
 	private int lives = 5;
 	private static final Color TEXT_COLOR = Color.MAGENTA;
@@ -71,7 +70,7 @@ public class LevelComponent extends JComponent {
 		this.levelLoader.setKeyListener(gameKeyboardListener);
 		this.transitionTime = 0;
 		this.levelFont = new Font("Level", Font.BOLD, 60);
-		this.soundEffect = new Sound();
+		new Sound();
 
 	}
 
